@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A hexlet college program \"Slack-like\" chat",
   "main": "index.js",
-  "proxy": "http://localhost:5001",
   "scripts": {
     "build": "npm run build --prefix frontend",
     "start": "start-server -s ./frontend/build",
