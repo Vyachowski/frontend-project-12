@@ -1,6 +1,6 @@
 // import {Field, Form, Formik} from "formik";
 import loginImg from '../assets/login.png'
-import {Card, CardBody, CardFooter, Col, Container, Image, Row, Form, Button} from "react-bootstrap";
+import {Card, CardBody, CardFooter, Col, Container, Image, Row, Form, Button, InputGroup} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 export default function LoginPage() {
@@ -16,16 +16,22 @@ export default function LoginPage() {
               <Form className={'col-12 col-md-6 mt-3 mt-mb-0'}>
                 <h1 className={'text-center mb-4'}>Войти</h1>
                 <Form.Group className="mb-3">
-                  <div className={'mb-3'}>
+                  <InputGroup className={'mb-3'}>
                     <Form.FloatingLabel label={'Ваш ник'} controlId="nickname">
                       <Form.Control type="text" placeholder="Ваш ник"/>
                     </Form.FloatingLabel>
-                  </div>
-                  <div className={'mb-4'}>
+                    <Form.Control.Feedback type="invalid">
+                      Error field
+                    </Form.Control.Feedback>
+                  </InputGroup>
+                  <InputGroup className={'mb-4'}>
                     <Form.FloatingLabel label={'Пароль'} controlId="password">
                       <Form.Control type="text" placeholder="Пароль"/>
                     </Form.FloatingLabel>
-                  </div>
+                    <Form.Control.Feedback type="invalid">
+                      Error field
+                    </Form.Control.Feedback>
+                  </InputGroup>
                 </Form.Group>
                 <Button type={'submit'} variant={'outline-primary'} className={'w-100 mb-3'}>Войти</Button>
               </Form>
