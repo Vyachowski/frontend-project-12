@@ -27,7 +27,7 @@ export default function LoginPage() {
                     </Form.FloatingLabel>
                   </div>
                 </Form.Group>
-                <Button variant={'outline-primary'} className={'w-100 mb-3'}>Войти</Button>
+                <Button type={'submit'} variant={'outline-primary'} className={'w-100 mb-3'}>Войти</Button>
               </Form>
             </CardBody>
             <CardFooter className={'p-4'}>
