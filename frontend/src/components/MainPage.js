@@ -3,7 +3,7 @@ import {useEffect} from "react";
 
 export default function MainPage() {
   const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem('authToken');
+  const isAuthenticated = localStorage.getItem('token');
 
   useEffect(() => {
     !isAuthenticated && navigate('login');

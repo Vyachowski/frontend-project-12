@@ -12,17 +12,20 @@ import {
   Form,
   Overlay
 } from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useDispatch} from "react-redux";
 import {setUser} from "../store/authSlice";
 
 const LoginPage = () => {
   const [show, setShow] = useState(false);
+  const [isAuthenticated, setAuthenticated] = useState(false);
+
   const target = useRef(null);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const validationSchema = Yup.object({
@@ -43,14 +46,22 @@ const LoginPage = () => {
           username,
           password
         })
-        .then(r => {
+        .then(({data}) => {
           setShow(false);
-          const { token, username} = r.data;
-          dispatch(setUser({token, username}));
+          dispatch(setUser(data));
+          setAuthenticated(true);
         })
         .catch(() => setShow(true));
     },
   });
+
+  useEffect(() => {
+    const checkAuthentication = () => {
+      isAuthenticated && navigate('/');
+    }
+
+    checkAuthentication();
+  }, [isAuthenticated, navigate]);
 
   return (
     <Container fluid className={'h-100'}>
@@ -125,7 +136,7 @@ const LoginPage = () => {
             <CardFooter className={'p-4'}>
               <p className={'text-center mb-0'}>
                 <span>Нет аккаунта? </span>
-                <Link to={'/'}>
+                <Link to={'/sign-in'}>
                   Регистрация
                 </Link>
               </p>
