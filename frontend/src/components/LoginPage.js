@@ -17,10 +17,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import {useRef, useState} from "react";
+import {useDispatch} from "react-redux";
+import {setUser} from "../store/authSlice";
 
 const LoginPage = () => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
+  const dispatch = useDispatch();
 
   const validationSchema = Yup.object({
     username: Yup.string().required('Обязательное поле'),
@@ -42,9 +45,10 @@ const LoginPage = () => {
         })
         .then(r => {
           setShow(false);
-          console.log(r);
+          const { token, username} = r.data;
+          dispatch(setUser(token, username));
         })
-        .catch(e => setShow(true));
+        .catch(() => setShow(true));
     },
   });
 
