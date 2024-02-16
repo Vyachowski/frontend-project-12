@@ -1,7 +1,9 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import Header from "./Header.js";
+import Chat from "./Chat.js";
 
-export default function MainPage() {
+const MainPage = () => {
   const navigate = useNavigate();
   const isAuthenticated = localStorage.getItem('token');
 
@@ -12,6 +14,13 @@ export default function MainPage() {
   return (
     !isAuthenticated
       ? <div>Redirect to login page...</div>
-      : <div>CHAT WILL BE HERE SOON!</div>
+      : (
+        <div className={'d-flex flex-column h-100'}>
+          <Header />
+          <Chat />
+        </div>
+      )
   );
 }
+
+export default MainPage;
