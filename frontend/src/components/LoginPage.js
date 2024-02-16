@@ -1,4 +1,3 @@
-// import {Field, Form, Formik} from "formik";
 import loginImg from '../assets/login.png'
 import {
   Card,
@@ -14,12 +13,12 @@ import {
   Overlay
 } from "react-bootstrap";
 import {Link} from "react-router-dom";
-import { useFormik} from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import {useRef, useState} from "react";
 
-export default function LoginPage() {
+const LoginPage = () => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
 
@@ -36,18 +35,16 @@ export default function LoginPage() {
     validationSchema: validationSchema,
     onSubmit: values => {
       const { username, password} = values;
-      // Send post request
       axios
         .post('/api/v1/login', {
           username,
           password
         })
         .then(r => {
-          setShow(false)
-          console.log(r, 123);
+          setShow(false);
+          console.log(r);
         })
         .catch(e => setShow(true));
-      // get response and save it to local storage and slice
     },
   });
 
@@ -135,3 +132,5 @@ export default function LoginPage() {
     </Container>
   );
 }
+
+export default LoginPage;
