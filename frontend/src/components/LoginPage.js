@@ -1,24 +1,53 @@
 // import {Field, Form, Formik} from "formik";
 import loginImg from '../assets/login.png'
-import {Card, CardBody, CardFooter, Col, Container, Image, Row, Button, InputGroup, Form} from "react-bootstrap";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Col,
+  Container,
+  Image,
+  Row,
+  Button,
+  InputGroup,
+  Form,
+  Overlay
+} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import { useFormik} from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+import {useRef, useState} from "react";
 
 export default function LoginPage() {
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
+
   const validationSchema = Yup.object({
-    nickname: Yup.string().required('Обязательное поле'),
+    username: Yup.string().required('Обязательное поле'),
     password: Yup.string().required('Обязательное поле'),
   });
 
   const formik = useFormik({
     initialValues: {
-      nickname: '',
+      username: '',
       password: '',
     },
     validationSchema: validationSchema,
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      const { username, password} = values;
+      // Send post request
+      axios
+        .post('/api/v1/login', {
+          username,
+          password
+        })
+        .then(r => {
+          setShow(false)
+          console.log(r, 123);
+        })
+        .catch(e => setShow(true));
+      // get response and save it to local storage and slice
     },
   });
 
@@ -35,18 +64,18 @@ export default function LoginPage() {
                 <h1 className={'text-center mb-4'}>Войти</h1>
                 <Form.Group className="mb-3">
                   <InputGroup className={'mb-3'}>
-                    <Form.FloatingLabel label={'Ваш ник'} controlId="nickname">
+                    <Form.FloatingLabel label={'Ваш ник'} controlId="username">
                       <Form.Control
                         type="text"
                         placeholder="Ваш ник"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.nickname}
-                        isInvalid={formik.touched.nickname && formik.errors.nickname}
+                        value={formik.values.username}
+                        isInvalid={formik.touched.username && formik.errors.username}
                       />
-                    <Form.Control.Feedback type="invalid">
-                      {formik.errors.nickname}
-                    </Form.Control.Feedback>
+                    {/*<Form.Control.Feedback type="invalid">*/}
+                    {/*  {formik.errors.username}*/}
+                    {/*</Form.Control.Feedback>*/}
                     </Form.FloatingLabel>
                   </InputGroup>
                   <InputGroup className={'mb-4'}>
@@ -59,13 +88,37 @@ export default function LoginPage() {
                         value={formik.values.password}
                         isInvalid={formik.touched.password && formik.errors.password}
                       />
-                    <Form.Control.Feedback type="invalid">
-                      {formik.errors.password}
-                    </Form.Control.Feedback>
+                    {/*<Form.Control.Feedback type="invalid">*/}
+                    {/*  {formik.errors.password}*/}
+                    {/*</Form.Control.Feedback>*/}
                     </Form.FloatingLabel>
                   </InputGroup>
                 </Form.Group>
-                <Button type={'submit'} variant={'outline-primary'} className={'w-100 mb-3'}>Войти</Button>
+                <Overlay target={target.current} show={show} placement="top-start">
+                  {({
+                      placement: _placement,
+                      arrowProps: _arrowProps,
+                      show: _show,
+                      popper: _popper,
+                      hasDoneInitialMeasure: _hasDoneInitialMeasure,
+                      ...props
+                    }) => (
+                    <div
+                      {...props}
+                      style={{
+                        position: 'absolute',
+                        backgroundColor: 'rgba(220, 53, 69, 0.9)',
+                        padding: '2px 10px',
+                        color: 'white',
+                        borderRadius: 2.5,
+                        ...props.style,
+                      }}
+                    >
+                      Неверные имя пользователя или пароль
+                    </div>
+                  )}
+                </Overlay>
+                <Button type={'submit'} ref={target} variant={'outline-primary'} className={'w-100 mb-3'}>Войти</Button>
               </Form>
             </CardBody>
             <CardFooter className={'p-4'}>
