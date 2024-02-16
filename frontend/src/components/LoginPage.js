@@ -46,7 +46,7 @@ const LoginPage = () => {
         .then(r => {
           setShow(false);
           const { token, username} = r.data;
-          dispatch(setUser(token, username));
+          dispatch(setUser({token, username}));
         })
         .catch(() => setShow(true));
     },
