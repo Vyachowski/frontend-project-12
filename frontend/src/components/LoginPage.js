@@ -18,7 +18,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import {useEffect, useRef, useState} from "react";
 import {useDispatch} from "react-redux";
-import {setUser} from "../store/authSlice";
+import {login} from "../store/authSlice";
 
 const LoginPage = () => {
   const [show, setShow] = useState(false);
@@ -48,7 +48,7 @@ const LoginPage = () => {
         })
         .then(({data}) => {
           setShow(false);
-          dispatch(setUser(data));
+          dispatch(login(data));
           setAuthenticated(true);
         })
         .catch(() => setShow(true));
