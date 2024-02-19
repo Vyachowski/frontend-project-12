@@ -11,7 +11,7 @@ const MainPage = () => {
   useEffect(() => {
     const syncChannelsAndMessages = async () => {
       if (!token) {
-        navigate('login');
+        navigate('/login');
       }
 
       const { data: channels } = await axios

@@ -3,7 +3,7 @@ import PageNotFound from "./components/404Page";
 import LoginPage from "./components/LoginPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainPage from "./components/MainPage";
-import store from "./store/store";
+import store from "./store";
 import {Provider} from "react-redux";
 
 function App() {
