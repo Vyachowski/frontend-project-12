@@ -1,9 +1,16 @@
 import { Button, Col, Container, Form, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import { useGetChannelsQuery } from "../store/channelsApi";
+import { useGetMessagesQuery } from "../store/messagesApi";
+import { useState } from "react";
 
 const Chat = () => {
-  const { data, error, isLoading, refetch } = useGetChannelsQuery();
-  const channels = data || [];
+  const [activeChannel, setActiveChannel] = useState('1');
+  // const { data: channelsData, error: channelsError, isLoading: isChannelsLoading, refetch: refetchChannels } = useGetChannelsQuery();
+  // const { data: messagesData, error: messagesError, isLoading: isMessagesLoading, refetch: refetchMessages } = useGetMessagesQuery();
+  const { data: channelsData } = useGetChannelsQuery();
+  const { data: messagesData } = useGetMessagesQuery();
+  const channels = channelsData || [];
+  const messages = messagesData || [];
 
   return (
     <Container className="container h-100 my-4 overflow-hidden rounded shadow">
@@ -21,10 +28,15 @@ const Chat = () => {
               <span className="visually-hidden">+</span>
             </Button>
           </div>
-          <ListGroup id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block" defaultActiveKey="#link1" as='ul'>
-            {channels.map((channel, index) => (
-              <ListGroupItem key={channel.id} className="nav-item p-0 w-100" as='li'>
-                <Button type='button' variant={ index === 0 ? 'secondary' :''} className={'w-100 rounded-0 text-start'}>
+          <ListGroup id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-hidden h-100 d-block" defaultActiveKey="#link1" as='ul'>
+            {channels.map((channel) => (
+              <ListGroupItem key={channel.id} className="nav-item p-0 w-100 overflow-hidden" as='li'>
+                <Button
+                  type='button'
+                  variant={ channel.id === activeChannel ? 'secondary' :''}
+                  className={'w-100 rounded-0 text-start'}
+                  onClick={() => setActiveChannel(channel.id)}
+                >
                   <span className="me-1">#</span>{channel.name}
                 </Button>
               </ListGroupItem>
@@ -39,7 +51,16 @@ const Chat = () => {
               </p>
               <span className="text-muted">0 сообщений</span>
             </div>
-            <div id="messages-box" className="chat-messages overflow-auto px-5"></div>
+            <div id="messages-box" className="chat-messages overflow-auto px-5">
+              {messages
+                .filter((message) => message.channelId === activeChannel)
+                .map((message, index) => (
+                <p className={'text-break mb-2'} key={index}>
+                  <strong>{message.author}</strong>
+                  : {message.text}
+                </p>
+              ))}
+            </div>
             <div className="mt-auto px-5 py-3">
               <Form noValidate="" className="py-1 border rounded-2">
                 <Form.Group className="d-flex has-validation">
