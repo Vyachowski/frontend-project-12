@@ -13,6 +13,12 @@ export const channelsApi = createApi({
         body: { name: channelName}
       })
     }),
+    renameChannel: builder.mutation({
+      query: (id) => ({
+        url: id,
+        method: 'PATCH',
+      })
+    }),
     removeChannel: builder.mutation({
       query: (id) => ({
         url: id,
