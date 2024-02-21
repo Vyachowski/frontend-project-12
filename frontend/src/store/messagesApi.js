@@ -13,12 +13,6 @@ export const messagesApi = createApi({
         body: { text: messageText, channelId},
       })
     }),
-    removeMessage: builder.mutation({
-      query: (id) => ({
-        url: id,
-        method: 'DELETE',
-      })
-    })
   })
 });
 
