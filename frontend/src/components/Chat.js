@@ -1,6 +1,10 @@
-import {Button, Col, Container, Form, ListGroup, ListGroupItem, Row} from "react-bootstrap";
+import { Button, Col, Container, Form, ListGroup, ListGroupItem, Row } from "react-bootstrap";
+import { useGetChannelsQuery } from "../store/channelsApi";
 
 const Chat = () => {
+  const { data, error, isLoading, refetch } = useGetChannelsQuery();
+  const channels = data || [];
+
   return (
     <Container className="container h-100 my-4 overflow-hidden rounded shadow">
       <Row className="row h-100 bg-white flex-md-row">
@@ -18,11 +22,13 @@ const Chat = () => {
             </Button>
           </div>
           <ListGroup id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block" defaultActiveKey="#link1" as='ul'>
-            <ListGroupItem className="nav-item p-0 w-100" as='li'>
-              <Button type='button' variant={'secondary'} className={'w-100 rounded-0 text-start'}>
-                <span className="me-1">#</span>general
-              </Button>
-            </ListGroupItem>
+            {channels.map((channel, index) => (
+              <ListGroupItem key={channel.id} className="nav-item p-0 w-100" as='li'>
+                <Button type='button' variant={ index === 0 ? 'secondary' :''} className={'w-100 rounded-0 text-start'}>
+                  <span className="me-1">#</span>{channel.name}
+                </Button>
+              </ListGroupItem>
+            ))}
           </ListGroup>
         </Col>
         <Col className="col p-0 h-100">
