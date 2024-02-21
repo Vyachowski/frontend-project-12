@@ -13,7 +13,7 @@ export const channelsApi = createApi({
 
       return headers
     },
-    }),
+  }),
   endpoints: (builder) => ({
     getChannels: builder.query({
       query: () => '',

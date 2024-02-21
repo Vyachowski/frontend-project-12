@@ -1,8 +1,19 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const messagesApi = createApi({
-  reducerPath: 'channels',
-  baseQuery: fetchBaseQuery({baseUrl: '/api/v1/channels'}),
+  reducerPath: 'messages',
+  baseQuery: fetchBaseQuery({
+    baseUrl: '/api/v1/messages',
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
+
+      return headers
+    },
+  }),
   endpoints: (builder) => ({
     getMessages: builder.query({
       query: () => '',
@@ -13,6 +24,12 @@ export const messagesApi = createApi({
         body: { text: messageText, channelId},
       })
     }),
+    removeMessage: builder.mutation({
+      query: (id) => ({
+        url: id,
+        method: 'DELETE',
+      })
+    })
   })
 });
 
