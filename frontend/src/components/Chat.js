@@ -1,38 +1,48 @@
 import { Button, Col, Container, Form, ListGroup, ListGroupItem, Row } from "react-bootstrap";
+import { useGetMessagesQuery } from "../store/messagesApi";
 import { useGetChannelsQuery } from "../store/channelsApi";
-import { useAddMessageMutation, useGetMessagesQuery } from "../store/messagesApi";
+import {getToken, getUsername} from "../store/authSlice";
+
 import {useEffect, useState} from "react";
-import {io} from "socket.io-client";
-import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
+import { io } from "socket.io-client";
+
+import axios from "axios";
+
+const socket = io();
 
 const Chat = () => {
-  const dispatch = useDispatch();
-  const [activeChannel, setActiveChannel] = useState('1');
+  const username = getUsername();
+  const token = getToken();
+
+  const [messageText, setMessageText] = useState('');
+  const [activeChannelId, setActiveChannelId] = useState('1');
+
   // const { data: channelsData, error: channelsError, isLoading: isChannelsLoading, refetch: refetchChannels } = useGetChannelsQuery();
-  // const { data: messagesData, error: messagesError, isLoading: isMessagesLoading, refetch: refetchMessages } = useGetMessagesQuery();
+  const { data: messagesData, error: messagesError, isLoading: isMessagesLoading, refetch: refetchMessages } = useGetMessagesQuery();
   const { data: channelsData } = useGetChannelsQuery();
-  const { data: messagesData } = useGetMessagesQuery();
   const channels = channelsData || [];
   const messages = messagesData || [];
+  const sendMessage = (e) => {
+    e.preventDefault();
+    const message = { body: messageText, channelId: activeChannelId, username }
+
+    axios
+      .post('/api/v1/messages', message, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      })
+      .then((r) => {
+        console.log(r.data)
+        setMessageText('');
+      })
+      .catch((e) => console.log(e));
+  }
 
   useEffect(()=> {
-    const socket = io();
     socket.on('newMessage', (message) => {
-      messages.push(message);
+      console.log(message);
     });
   })
 
-  const formik = useFormik({
-    initialValues: {
-      message: '',
-    },
-    onSubmit: (values, { props, setSubmitting }) => {
-      const { message } = values;
-      props.dispatch();
-      // setSubmitting(false);
-    },
-  });
 
   return (
     <Container className="container h-100 my-4 overflow-hidden rounded shadow">
@@ -55,9 +65,9 @@ const Chat = () => {
               <ListGroupItem key={channel.id} className="nav-item p-0 w-100 overflow-hidden" as='li'>
                 <Button
                   type='button'
-                  variant={ channel.id === activeChannel ? 'secondary' :''}
+                  variant={ channel.id === activeChannelId ? 'secondary' :''}
                   className={'w-100 rounded-0 text-start'}
-                  onClick={() => setActiveChannel(channel.id)}
+                  onClick={() => setActiveChannelId(channel.id)}
                 >
                   <span className="me-1">#</span>{channel.name}
                 </Button>
@@ -75,25 +85,25 @@ const Chat = () => {
             </div>
             <div id="messages-box" className="chat-messages overflow-auto px-5">
               {messages
-                .filter((message) => message.channelId === activeChannel)
+                .filter((message) => message.channelId === activeChannelId)
                 .map((message, index) => (
                 <p className={'text-break mb-2'} key={index}>
-                  <strong>{message.author}</strong>
-                  : {message.text}
+                  <strong>{message.username}</strong>
+                  : {message.body}
                 </p>
               ))}
             </div>
             <div className="mt-auto px-5 py-3">
-              <Form noValidate="" className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
+              <Form className="py-1 border rounded-2" onSubmit={(e) => sendMessage(e)}>
                 <Form.Group className="d-flex has-validation">
                   <Form.Control
                     className="border-0 p-0 ps-2 form-control"
                     name="body"
                     aria-label="Новое сообщение"
                     placeholder="Введите сообщение..."
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.message}
+                    value={messageText}
+                    onChange={(e) => setMessageText(e.target.value)}
+                    disabled={false}
                   />
                   <Button type="submit" className={'border-0 lh-1'} variant={'outline-secondary'} disabled={false}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
