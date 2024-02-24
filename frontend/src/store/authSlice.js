@@ -22,5 +22,4 @@ export const getToken = () => localStorage.getItem('token');
 export const getUsername = () => localStorage.getItem('username');
 
 export const { login, logout } = authSlice.actions;
-
 export default authSlice.reducer;
