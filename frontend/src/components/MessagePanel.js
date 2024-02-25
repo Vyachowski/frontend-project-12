@@ -2,16 +2,21 @@ import { Button, Form} from "react-bootstrap";
 import { useState } from "react";
 
 import { getUsername } from "../store/authSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { postMessage} from "../store/messagesSlice";
 
 const MessagePanel = () => {
+  const dispatch = useDispatch();
   const [messageText, setMessageText] = useState('');
   const activeChannelId = useSelector(state => state.ui.activeChannelId);
 
   const sendMessage = (e) => {
     e.preventDefault();
-    const message = { body: messageText, channelId: activeChannelId, username: getUsername() }
-    console.log(message)
+
+    const newMessage = { body: messageText, channelId: activeChannelId, username: getUsername() }
+    dispatch(postMessage(newMessage));
+
+    setMessageText('');
   }
 
   return (
