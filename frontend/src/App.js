@@ -1,10 +1,13 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import PageNotFound from "./components/404Page";
-import LoginPage from "./components/LoginPage";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import MainPage from "./components/MainPage";
 import {Provider} from "react-redux";
+
+import PageNotFound from "./pages/404Page";
+import LoginPage from "./pages/LoginPage";
+import MainPage from "./pages/MainPage";
 import store from "./store";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
