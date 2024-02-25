@@ -8,6 +8,7 @@ import { socket } from "./Chat";
 const Messages = () => {
   const channels = useSelector((state) => Object.values(state.channels.entities));
   const messages = useSelector((state) => Object.values(state.messages.entities));
+
   const activeChannelId = useSelector(state => state.ui.activeChannelId);
   const activeChannel = channels.find((channel) => channel.id === activeChannelId);
 
