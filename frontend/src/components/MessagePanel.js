@@ -2,7 +2,7 @@ import { Button, Form} from "react-bootstrap";
 import { useState } from "react";
 
 import { getUsername } from "../store/authSlice";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const MessagePanel = () => {
   const [messageText, setMessageText] = useState('');
