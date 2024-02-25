@@ -1,22 +1,19 @@
 import { Button, Form} from "react-bootstrap";
-import { useState } from "react";
 
 import { getUsername } from "../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { postMessage} from "../store/messagesSlice";
+import { setMessageText } from "../store/uiSlice";
 
 const MessagePanel = () => {
   const dispatch = useDispatch();
-  const [messageText, setMessageText] = useState('');
+  const messageText = useSelector((state) => state.ui.messageText);
   const activeChannelId = useSelector(state => state.ui.activeChannelId);
 
   const sendMessage = (e) => {
     e.preventDefault();
-
     const newMessage = { body: messageText, channelId: activeChannelId, username: getUsername() }
     dispatch(postMessage(newMessage));
-
-    setMessageText('');
   }
 
   return (
@@ -29,7 +26,7 @@ const MessagePanel = () => {
             aria-label="Новое сообщение"
             placeholder="Введите сообщение..."
             value={messageText}
-            onChange={(e) => setMessageText(e.target.value)}
+            onChange={(e) => dispatch(setMessageText({ messageText: e.target.value }))}
             disabled={false}
           />
           <Button

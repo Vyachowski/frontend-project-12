@@ -29,7 +29,7 @@ const Channels = () => {
               type='button'
               variant={ channel.id === activeChannelId ? 'secondary' : ''}
               className={'w-100 rounded-0 text-start'}
-              onClick={() => dispatch(setActiveChannel(channel.id))}
+              onClick={() => dispatch(setActiveChannel({ activeChannelId: channel.id }))}
             >
               <span className="me-1">#</span>{channel.name}
             </Button>
