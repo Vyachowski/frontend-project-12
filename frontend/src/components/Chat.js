@@ -1,48 +1,37 @@
 import { Button, Col, Container, Form, ListGroup, ListGroupItem, Row } from "react-bootstrap";
-import { useGetMessagesQuery } from "../store/messagesApi";
-import { useGetChannelsQuery } from "../store/channelsApi";
-import {getToken, getUsername} from "../store/authSlice";
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import {useDispatch, useSelector} from "react-redux";
 
-import axios from "axios";
+import { fetchChannels } from "../store/channelsSlice";
+import { fetchMessages } from "../store/messagesSlice";
+import {getUsername} from "../store/authSlice";
 
 const socket = io();
 
 const Chat = () => {
-  const username = getUsername();
-  const token = getToken();
-
+  const dispatch = useDispatch();
   const [messageText, setMessageText] = useState('');
   const [activeChannelId, setActiveChannelId] = useState('1');
-
-  // const { data: channelsData, error: channelsError, isLoading: isChannelsLoading, refetch: refetchChannels } = useGetChannelsQuery();
-  const { data: messagesData, error: messagesError, isLoading: isMessagesLoading, refetch: refetchMessages } = useGetMessagesQuery();
-  const { data: channelsData } = useGetChannelsQuery();
-  const channels = channelsData || [];
-  const messages = messagesData || [];
+  const channels = useSelector((state) => Object.values(state.channels.entities)) || [];
+  const messages = useSelector((state) => Object.values(state.messages.entities)) || [];
   const sendMessage = (e) => {
     e.preventDefault();
-    const message = { body: messageText, channelId: activeChannelId, username }
-
-    axios
-      .post('/api/v1/messages', message, {
-        headers: { 'Authorization': `Bearer ${token}` },
-      })
-      .then((r) => {
-        console.log(r.data)
-        setMessageText('');
-      })
-      .catch((e) => console.log(e));
+    const message = { body: messageText, channelId: activeChannelId, username: getUsername() }
+    console.log(message)
   }
+
+  useEffect(() => {
+    dispatch(fetchChannels());
+    dispatch(fetchMessages());
+  }, [])
 
   useEffect(()=> {
     socket.on('newMessage', (message) => {
       console.log(message);
     });
   })
-
 
   return (
     <Container className="container h-100 my-4 overflow-hidden rounded shadow">
@@ -94,7 +83,7 @@ const Chat = () => {
               ))}
             </div>
             <div className="mt-auto px-5 py-3">
-              <Form className="py-1 border rounded-2" onSubmit={(e) => sendMessage(e)}>
+              <Form className="py-1 border rounded-2" onSubmit={sendMessage}>
                 <Form.Group className="d-flex has-validation">
                   <Form.Control
                     className="border-0 p-0 ps-2 form-control"
