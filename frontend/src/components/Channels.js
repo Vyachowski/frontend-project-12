@@ -27,7 +27,7 @@ const Channels = () => {
           <ListGroupItem key={channel.id} className="nav-item p-0 w-100 overflow-hidden" as='li'>
             <Button
               type='button'
-              variant={ channel.id === activeChannelId ? 'secondary' :''}
+              variant={ channel.id === activeChannelId ? 'secondary' : ''}
               className={'w-100 rounded-0 text-start'}
               onClick={() => dispatch(setActiveChannel(channel.id))}
             >
