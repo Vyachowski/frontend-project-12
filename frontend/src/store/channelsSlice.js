@@ -27,6 +27,8 @@ const channelsSlice = createSlice({
   reducers: {
     addChannel: channelsAdapter.addOne,
     addChannels: channelsAdapter.addMany,
+    removeChannel: channelsAdapter.removeOne,
+    renameChannel: channelsAdapter.updateOne,
   },
   extraReducers: (builder) => {
     builder
@@ -58,6 +60,6 @@ const channelsSlice = createSlice({
   }
 });
 
-export const { addChannel, addChannels } = channelsSlice.actions;
+export const { addChannel, addChannels, removeChannel, renameChannel } = channelsSlice.actions;
 
 export default channelsSlice.reducer;
