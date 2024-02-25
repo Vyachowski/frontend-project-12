@@ -1,12 +1,12 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { getMessageUrl } from "../utils/routes";
+import {authConfig, getMessageUrl} from "../utils/routes";
 
 export const fetchMessages = createAsyncThunk(
   'messages/fetchMessages',
   async () => {
-    const response = await axios.get(getMessageUrl());
+    const response = await axios.get(getMessageUrl(), authConfig);
     return response.data;
   }
 );
@@ -14,7 +14,7 @@ export const fetchMessages = createAsyncThunk(
 export const postMessage = createAsyncThunk(
   'messages/postMessage',
   async (newMessage) => {
-    const response = await axios.post(getMessageUrl(), newMessage);
+    const response = await axios.post(getMessageUrl(), newMessage, authConfig);
     return response.data;
   }
 );
