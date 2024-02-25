@@ -1,7 +1,8 @@
-import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
-import Header from "./Header.js";
-import Chat from "./Chat.js";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+import Header from "../components/Header.js";
+import Chat from "../components/Chat.js";
 
 const MainPage = () => {
   const navigate = useNavigate();
