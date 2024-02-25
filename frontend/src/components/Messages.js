@@ -6,8 +6,10 @@ import MessagePanel from "./MessagePanel";
 import { socket } from "./Chat";
 
 const Messages = () => {
-  const messages = useSelector((state) => Object.values(state.messages.entities)) || [];
+  const channels = useSelector((state) => Object.values(state.channels.entities));
+  const messages = useSelector((state) => Object.values(state.messages.entities));
   const activeChannelId = useSelector(state => state.ui.activeChannelId);
+  const activeChannel = channels.find((channel) => channel.id === activeChannelId);
 
   useEffect(()=> {
     socket.on('newMessage', (message) => {
@@ -20,7 +22,7 @@ const Messages = () => {
       <div className="d-flex flex-column h-100">
         <div className="bg-light mb-4 p-3 shadow-sm small">
           <p className="m-0">
-            <b># general</b>
+            <b># {activeChannel.name}</b>
           </p>
           <span className="text-muted">0 сообщений</span>
         </div>
