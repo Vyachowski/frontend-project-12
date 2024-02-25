@@ -9,7 +9,7 @@ const uiSlice = createSlice({
   initialState,
   reducers: {
     setActiveChannel: (state, action) => {
-      state.activeChannelId = action.payload.id;
+      state.activeChannelId = action.payload;
     },
   }
 });
