@@ -15,7 +15,7 @@ const Chat = () => {
   useEffect(() => {
     dispatch(fetchChannels());
     dispatch(fetchMessages());
-  }, [])
+  }, [dispatch])
 
   return (
     <Container className="container h-100 my-4 overflow-hidden rounded shadow">
