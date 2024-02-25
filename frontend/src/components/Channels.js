@@ -1,6 +1,9 @@
 import { Button, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+
 import { setActiveChannel } from "../store/uiSlice";
+
+import ChannelModal from "./ChannelModal";
 
 const Channels = () => {
   const dispatch = useDispatch();
@@ -36,6 +39,7 @@ const Channels = () => {
           </ListGroupItem>
         ))}
       </ListGroup>
+      <ChannelModal />
     </Col>
   )
 }
