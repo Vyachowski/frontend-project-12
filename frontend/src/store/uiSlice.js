@@ -9,13 +9,10 @@ const uiSlice = createSlice({
   initialState,
   reducers: {
     setActiveChannel: (state, action) => {
-      const { id } = action.payload;
+      state.activeChannelId = action.payload.id;
     },
   }
 });
 
-export const getToken = () => localStorage.getItem('token');
-export const getUsername = () => localStorage.getItem('username');
-
-export const { login, logout } = uiSlice.actions;
+export const { setActiveChannel } = uiSlice.actions;
 export default uiSlice.reducer;
