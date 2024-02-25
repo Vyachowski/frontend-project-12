@@ -25,7 +25,7 @@ const channelsSlice = createSlice({
   name: 'channels',
   initialState: channelsAdapter.getInitialState({ loadingStatus: 'idle', error: null }),
   reducers: {
-    addMessage: channelsAdapter.addOne,
+    addChannel: channelsAdapter.addOne,
     addChannels: channelsAdapter.addMany,
   },
   extraReducers: (builder) => {
@@ -43,21 +43,21 @@ const channelsSlice = createSlice({
         state.loadingStatus = 'failed';
         state.error = action.error;
       })
-      .addCase(postMessage.pending, (state) => {
+      .addCase(postChannel.pending, (state) => {
           state.loadingStatus = 'loading';
           state.error = null;
         })
-      .addCase(postMessage.fulfilled, (state) => {
+      .addCase(postChannel.fulfilled, (state) => {
         state.loadingStatus = 'idle';
         state.error = null;
       })
-      .addCase(postMessage.rejected, (state, action) => {
+      .addCase(postChannel.rejected, (state, action) => {
         state.loadingStatus = 'failed';
         state.error = action.error;
       });
   }
 });
 
-export const { addMessage, addChannels } = channelsSlice.actions;
+export const { addChannel, addChannels } = channelsSlice.actions;
 
 export default channelsSlice.reducer;
