@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { postMessage } from "./messagesSlice";
 import { login } from "./authSlice";
+import { postChannel } from "./channelsSlice";
 
 const initialState = {
   activeChannelId: '1',
@@ -37,6 +38,9 @@ const uiSlice = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.loginPageWarningOverlay = true;
+      })
+      .addCase(postChannel.fulfilled, (state, action) => {
+        state.activeChannelId = action.payload.id;
       })
   }
 });
