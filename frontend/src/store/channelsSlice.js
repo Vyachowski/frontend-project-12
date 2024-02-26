@@ -15,10 +15,10 @@ export const fetchChannels = createAsyncThunk(
 
 export const postChannel = createAsyncThunk(
   'channels/postChannel',
-  async (newChannel, { getState }) => {
+  async (name, { getState }) => {
     const state = getState();
     const token = state.auth.token;
-    const response = await axios.post(getChannelsUrl(), newChannel, getAuthConfig(token));
+    const response = await axios.post(getChannelsUrl(), { name }, getAuthConfig(token));
     return response.data;
   }
 );
