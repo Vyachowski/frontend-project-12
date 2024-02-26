@@ -48,7 +48,7 @@ const Channels = () => {
               ? (
                 <Dropdown className={'w-100'} as={ButtonGroup}>
                   <Button
-                    className={'w-100 rounded-0 text-start'}
+                    className={'w-100 text-start'}
                     variant={ channel.id === activeChannelId ? 'secondary' : ''}
                     onClick={() => dispatch(setActiveChannel({ activeChannelId: channel.id }))}
                   >
@@ -71,7 +71,7 @@ const Channels = () => {
                 <Button
                   type='button'
                   variant={ channel.id === activeChannelId ? 'secondary' : ''}
-                  className={'w-100 rounded-0 text-start'}
+                  className={'w-100 text-start'}
                   onClick={() => dispatch(setActiveChannel({ activeChannelId: channel.id }))}
                 >
                   <span className="me-1">#</span>{channel.name}
