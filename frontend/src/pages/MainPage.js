@@ -1,9 +1,10 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import Header from "../components/Header.js";
 import Chat from "../components/Chat.js";
-import { useDispatch, useSelector } from "react-redux";
+
 import { logout } from "../store/authSlice";
 
 const MainPage = () => {
