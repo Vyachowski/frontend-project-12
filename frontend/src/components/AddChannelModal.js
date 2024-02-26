@@ -4,27 +4,49 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { setChannelModal } from "../store/uiSlice";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import {postChannel} from "../store/channelsSlice";
+import { postChannel } from "../store/channelsSlice";
+import { useEffect, useRef } from "react";
 
 const AddChannelModal = () => {
+  const inputRef = useRef(null);
   const dispatch = useDispatch();
   const showChannelModal = useSelector(state => state.ui.showChannelModal);
+  const channels = useSelector((state) => Object.values(state.channels.entities));
+  const channelNames = channels.map(channel => channel.name);
 
   const validationSchema = Yup.object({
-    username: Yup.string().required('Обязательное поле'),
-    password: Yup.string().required('Обязательное поле'),
+    newChannelName: Yup
+      .string()
+      .required('Обязательное поле')
+      .min(3, 'От 3 до 20 символов')
+      .max(20, 'От 3 до 20 символов')
+      .test('is-unique', 'Имя канала должно быть уникальным', (value) => {
+        return !channelNames.includes(value);
+      })
   });
 
   const formik = useFormik({
     initialValues: {
       newChannelName: '',
     },
+    validateOnChange: false,
+    validateOnBlur: false,
     validationSchema: validationSchema,
     onSubmit: values => {
       const { newChannelName } = values;
       dispatch(postChannel(newChannelName))
+      dispatch(setChannelModal({ showChannelModal: false }));
     },
   });
+
+  useEffect(() => {
+    if (showChannelModal) {
+      setTimeout(() => {
+        inputRef.current.focus();
+      }, 100)
+    }
+  }, [showChannelModal]);
+
 
   return (
     <Modal show={showChannelModal} centered onHide={() => dispatch(setChannelModal({ showChannelModal: false }))}>
@@ -32,24 +54,33 @@ const AddChannelModal = () => {
         <Modal.Title>Добавить канал</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
-          <Form.Group controlId="channelName">
+        <Form onSubmit={formik.handleSubmit}>
+          <Form.Group controlId="fromChannelName">
             <Form.Label visuallyHidden>Название канала</Form.Label>
-              <Form.Control
-                className='mb-2'
-                type="channelName"
-                placeholder=''
-                autoFocus
-              />
+            <Form.Control
+              name='newChannelName'
+              className='mb-2'
+              type='text'
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.newChannelName}
+              isInvalid={formik.touched.newChannelName && formik.errors.newChannelName}
+              ref={inputRef}
+            />
+            {formik.errors.newChannelName
+              ? (<Form.Control.Feedback className='mb-2' type="invalid">
+                  {formik.errors.newChannelName}
+                </Form.Control.Feedback>)
+              : null}
           </Form.Group>
-          <Form.Group className="d-flex justify-content-end">
-            <Button className={'me-2'} variant="secondary" onClick={() => dispatch(setChannelModal({ showChannelModal: false }))}>
+          <div className="d-flex justify-content-end">
+            <Button type='button' className={'me-2'} variant="secondary" onClick={() => dispatch(setChannelModal({ showChannelModal: false }))}>
               Отменить
             </Button>
-            <Button variant="primary" onClick={() => dispatch(setChannelModal({ showChannelModal: false }))}>
+            <Button type='submit' variant="primary">
               Отправить
             </Button>
-          </Form.Group>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>
