@@ -15,8 +15,10 @@ export const fetchMessages = createAsyncThunk(
 
 export const postMessage = createAsyncThunk(
   'messages/postMessage',
-  async (newMessage) => {
-    const response = await axios.post(getMessageUrl(), newMessage, getAuthConfig());
+  async (newMessage, { getState }) => {
+    const state = getState();
+    const token = state.auth.token;
+    const response = await axios.post(getMessageUrl(), newMessage, getAuthConfig(token));
     return response.data;
   }
 );
