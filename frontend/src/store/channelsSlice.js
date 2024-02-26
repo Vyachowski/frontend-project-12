@@ -19,6 +19,22 @@ export const postChannel = createAsyncThunk(
   }
 );
 
+export const renameChannel = createAsyncThunk(
+  'channels/renameChannel',
+  async (id, name) => {
+    const response = await axios.patch(getChannelsUrl(id), { name }, authConfig);
+    return response.data;
+  }
+);
+
+export const removeChannel = createAsyncThunk(
+  'channels/removeChannel',
+  async (id) => {
+    const response = await axios.delete(getChannelsUrl(id), authConfig);
+    return response.data;
+  }
+);
+
 const channelsAdapter = createEntityAdapter();
 
 const channelsSlice = createSlice({
@@ -60,6 +76,6 @@ const channelsSlice = createSlice({
   }
 });
 
-export const { addChannel, addChannels, removeChannel, renameChannel } = channelsSlice.actions;
+export const { addChannel, addChannels } = channelsSlice.actions;
 
 export default channelsSlice.reducer;
