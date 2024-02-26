@@ -1,4 +1,3 @@
-import loginImg from '../assets/login.png'
 import {
   Card,
   CardBody,
@@ -12,17 +11,20 @@ import {
   Form,
   Overlay
 } from "react-bootstrap";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
-import {useEffect, useRef, useState} from "react";
-import {useDispatch} from "react-redux";
-import {login} from "../store/authSlice";
+
+import { login } from "../store/authSlice";
+
+import loginImg from '../assets/login.png'
 
 const LoginPage = () => {
   const [show, setShow] = useState(false);
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const loginPageWarningOverlay = useSelector(state => state.ui.loginPageWarningOverlay);
 
   const target = useRef(null);
   const navigate = useNavigate();
@@ -40,18 +42,8 @@ const LoginPage = () => {
     },
     validationSchema: validationSchema,
     onSubmit: values => {
-      const { username, password} = values;
-      axios
-        .post('/api/v1/login', {
-          username,
-          password
-        })
-        .then(({data}) => {
-          setShow(false);
-          dispatch(login(data));
-          setAuthenticated(true);
-        })
-        .catch(() => setShow(true));
+      const { username, password } = values;
+      dispatch(login({ username, password }));
     },
   });
 
@@ -85,9 +77,6 @@ const LoginPage = () => {
                         value={formik.values.username}
                         isInvalid={formik.touched.username && formik.errors.username}
                       />
-                    {/*<Form.Control.Feedback type="invalid">*/}
-                    {/*  {formik.errors.username}*/}
-                    {/*</Form.Control.Feedback>*/}
                     </Form.FloatingLabel>
                   </InputGroup>
                   <InputGroup className={'mb-4'}>
@@ -100,13 +89,10 @@ const LoginPage = () => {
                         value={formik.values.password}
                         isInvalid={formik.touched.password && formik.errors.password}
                       />
-                    {/*<Form.Control.Feedback type="invalid">*/}
-                    {/*  {formik.errors.password}*/}
-                    {/*</Form.Control.Feedback>*/}
                     </Form.FloatingLabel>
                   </InputGroup>
                 </Form.Group>
-                <Overlay target={target.current} show={show} placement="top-start">
+                <Overlay target={target.current} show={loginPageWarningOverlay} placement="top-start">
                   {({
                       placement: _placement,
                       arrowProps: _arrowProps,
