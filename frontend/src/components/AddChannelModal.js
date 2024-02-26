@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Modal } from "react-bootstrap";
+import { useEffect, useRef } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import { setChannelModal } from "../store/uiSlice";
-import * as Yup from "yup";
-import { useFormik } from "formik";
 import { postChannel } from "../store/channelsSlice";
-import { useEffect, useRef } from "react";
 
 const AddChannelModal = () => {
   const inputRef = useRef(null);
