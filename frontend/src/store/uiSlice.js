@@ -4,6 +4,8 @@ import { postMessage } from "./messagesSlice";
 const initialState = {
   activeChannelId: '1',
   messageText: '',
+  showChannelModal: false,
+  channelModalType: 'AddChannel',
 };
 
 const uiSlice = createSlice({
@@ -15,7 +17,10 @@ const uiSlice = createSlice({
     },
     setMessageText: (state, action) => {
       state.messageText = action.payload.messageText;
-    }
+    },
+    setChannelModal: (state, action) => {
+      state.showChannelModal = action.payload.showChannelModal;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -25,5 +30,5 @@ const uiSlice = createSlice({
   }
 });
 
-export const { setActiveChannel, setMessageText } = uiSlice.actions;
+export const { setActiveChannel, setMessageText, setChannelModal } = uiSlice.actions;
 export default uiSlice.reducer;
