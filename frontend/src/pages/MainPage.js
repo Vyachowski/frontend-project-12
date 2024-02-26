@@ -33,7 +33,7 @@ const MainPage = () => {
 
   return (
     !isAuthenticated
-      ? <div>Redirect to login page...</div>
+      ? <div className={'text-center d-flex justify-content-center align-items-center'}>Redirect to login page...</div>
       : (
         <div className={'d-flex flex-column h-100'}>
           <Header />
