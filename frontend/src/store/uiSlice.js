@@ -24,6 +24,9 @@ const uiSlice = createSlice({
     setChannelModal: (state, action) => {
       state.showChannelModal = action.payload.showChannelModal;
     },
+    setChannelModalType: (state, action) => {
+      state.channelModalType = action.payload.channelModalType;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -45,5 +48,5 @@ const uiSlice = createSlice({
   }
 });
 
-export const { setActiveChannel, setMessageText, setChannelModal } = uiSlice.actions;
+export const { setActiveChannel, setMessageText, setChannelModal, setChannelModalType } = uiSlice.actions;
 export default uiSlice.reducer;
