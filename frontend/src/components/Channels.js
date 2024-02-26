@@ -16,6 +16,10 @@ const Channels = () => {
   const showChannelModal = useSelector(state => state.ui.showChannelModal);
   const channelModalType = useSelector(state => state.ui.channelModalType);
 
+  const handleAddChannel = () => {
+    dispatch(setChannelModalType({ channelModalType: 'AddChannel' }));
+    dispatch(setChannelModal({ showChannelModal: true }));
+  }
   const handleRemoveChannel = () => {
     dispatch(setChannelModalType({ channelModalType: 'RemoveChannel' }));
     dispatch(setChannelModal({ showChannelModal: true }));
@@ -30,7 +34,7 @@ const Channels = () => {
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>Каналы</b>
-        <Button type="button" variant="link" className="p-0 lh-1" onClick={() => dispatch(setChannelModal({ showChannelModal: true }))}>
+        <Button type="button" variant="link" className="p-0 lh-1" onClick={() => handleAddChannel()}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
             <path
               d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
@@ -63,11 +67,11 @@ const Channels = () => {
                   <Dropdown.Menu>
                     <Dropdown.Item
                       href="#"
-                      onClick={(channel) => handleRemoveChannel(channel.id)}
+                      onClick={() => handleRemoveChannel()}
                     >Удалить</Dropdown.Item>
                     <Dropdown.Item
                       href="#"
-                      onClick={(channel) => handleRenameChannel(channel.id)}
+                      onClick={() => handleRenameChannel()}
                     >Переименовать</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -88,18 +92,36 @@ const Channels = () => {
       </ListGroup>
       {
         showChannelModal && (
-          <ModalWindow children={
+          <ModalWindow
+            children={
+              (() => {
+                switch (channelModalType) {
+                  case 'RemoveChannel':
+                    return <RemoveChannelForm />;
+                  case 'RenameChannel':
+                    return <RenameChannelForm />;
+                  case 'AddChannel':
+                    return <AddChannelForm />;
+                  default:
+                    return;
+                }
+              })()
+          }
+          title={
             (() => {
               switch (channelModalType) {
                 case 'RemoveChannel':
-                  return <RemoveChannelForm />;
+                  return 'Удалить канал';
                 case 'RenameChannel':
-                  return <RenameChannelForm />;
+                  return 'Переименовать канал';
+                case 'AddChannel':
+                  return 'Добавить канал';
                 default:
-                  return <AddChannelForm />;
+                  return;
               }
             })()
-          } />
+          }
+          />
         )
       }
     </Col>

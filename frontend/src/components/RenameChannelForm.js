@@ -12,7 +12,9 @@ const RenameChannelForm = () => {
   const inputRef = useRef(null);
   const showChannelModal = useSelector(state => state.ui.showChannelModal);
   const channels = useSelector((state) => Object.values(state.channels.entities));
+  const activeChannelId = useSelector(state => state.ui.activeChannelId);
   const channelNames = channels.map(channel => channel.name);
+  const currentChannel = channels.filter((channel) => channel.id === activeChannelId)
 
   const validationSchema = Yup.object({
     newChannelName: Yup
@@ -27,7 +29,7 @@ const RenameChannelForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      newChannelName: '',
+      newChannelName: currentChannel.name,
     },
     validateOnChange: false,
     validateOnBlur: false,
@@ -47,9 +49,10 @@ const RenameChannelForm = () => {
     }
   }, [showChannelModal]);
 
-  return (<Form onSubmit={formik.handleSubmit}>
+  return (
+    <Form onSubmit={formik.handleSubmit}>
     <Form.Group controlId="fromChannelName">
-      <Form.Label visuallyHidden>Название канала</Form.Label>
+      <Form.Label visuallyHidden>Переименовать канал</Form.Label>
       <Form.Control
         name='newChannelName'
         className='mb-2'
@@ -61,17 +64,19 @@ const RenameChannelForm = () => {
         ref={inputRef}
       />
       {formik.errors.newChannelName
-        ? (<Form.Control.Feedback className='mb-2' type="invalid">
-          {formik.errors.newChannelName}
-        </Form.Control.Feedback>)
-        : null}
+        ? (
+          <Form.Control.Feedback className='mb-2' type="invalid">
+            {formik.errors.newChannelName}
+          </Form.Control.Feedback>)
+        : null
+      }
     </Form.Group>
     <div className="d-flex justify-content-end">
       <Button type='button' className={'me-2'} variant="secondary" onClick={() => dispatch(setChannelModal({ showChannelModal: false }))}>
         Отменить
       </Button>
       <Button type='submit' variant="primary">
-        Отправить
+        Переименовать
       </Button>
     </div>
   </Form>)

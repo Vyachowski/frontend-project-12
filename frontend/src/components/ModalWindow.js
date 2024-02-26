@@ -3,14 +3,14 @@ import { Modal } from "react-bootstrap";
 
 import { setChannelModal } from "../store/uiSlice";
 
-const ModalWindow = ({children}) => {
+const ModalWindow = ({children, title}) => {
   const dispatch = useDispatch;
   const showChannelModal = useSelector(state => state.ui.showChannelModal);
 
   return (
     <Modal show={showChannelModal} centered onHide={() => dispatch(setChannelModal({ showChannelModal: false }))}>
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {children}

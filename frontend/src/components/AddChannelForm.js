@@ -47,7 +47,8 @@ const AddChannelForm = () => {
     }
   }, [showChannelModal]);
 
-  return (<Form onSubmit={formik.handleSubmit}>
+  return (
+    <Form onSubmit={formik.handleSubmit}>
     <Form.Group controlId="fromChannelName">
       <Form.Label visuallyHidden>Название канала</Form.Label>
       <Form.Control
