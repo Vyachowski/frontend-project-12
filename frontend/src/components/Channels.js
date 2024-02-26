@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setActiveChannel, setChannelModal } from "../store/uiSlice";
 
-import AddChannelModal from "./AddChannelModal";
+import RemoveChannelForm from "./RemoveChannelForm";
+import RenameChannelForm from "./RenameChannelForm";
+import AddChannelForm from "./AddChannelForm";
+import ModalWindow from "./ModalWindow";
 
 const Channels = () => {
   const dispatch = useDispatch();
@@ -13,14 +16,14 @@ const Channels = () => {
   const showChannelModal = useSelector(state => state.ui.showChannelModal);
   const channelModalType = useSelector(state => state.ui.channelModalType);
 
-  const renderModal= () => {
+  const renderModal = () => {
     switch (channelModalType) {
-      // case 'RenameChannel':
-      //   return <RenameChannelModal />
-      // case 'RemoveChannel':
-      //   return <RemoveChannelModal />
+      case 'RenameChannel':
+        return <ModalWindow children={<RenameChannelForm/>} />
+      case 'RemoveChannel':
+        return <ModalWindow children={<RemoveChannelForm/>} />
       default:
-        return <AddChannelModal />
+        return <ModalWindow children={<AddChannelForm/>} />
     }
   }
 
