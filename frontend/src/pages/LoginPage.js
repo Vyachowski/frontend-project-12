@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -48,11 +48,7 @@ const LoginPage = () => {
   });
 
   useEffect(() => {
-    const checkAuthentication = () => {
-      isAuthenticated && navigate('/');
-    }
-
-    checkAuthentication();
+    isAuthenticated && navigate('/');
   }, [isAuthenticated, navigate]);
 
   return (
