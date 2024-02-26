@@ -15,24 +15,30 @@ export const fetchChannels = createAsyncThunk(
 
 export const postChannel = createAsyncThunk(
   'channels/postChannel',
-  async (newChannel) => {
-    const response = await axios.post(getChannelsUrl(), newChannel, getAuthConfig());
+  async (newChannel, { getState }) => {
+    const state = getState();
+    const token = state.auth.token;
+    const response = await axios.post(getChannelsUrl(), newChannel, getAuthConfig(token));
     return response.data;
   }
 );
 
 export const renameChannel = createAsyncThunk(
   'channels/renameChannel',
-  async (id, name) => {
-    const response = await axios.patch(getChannelsUrl(id), { name }, getAuthConfig());
+  async ({ id, name }, { getState }) => {
+    const state = getState();
+    const token = state.auth.token;
+    const response = await axios.patch(getChannelsUrl(id), { name }, getAuthConfig(token));
     return response.data;
   }
 );
 
 export const removeChannel = createAsyncThunk(
   'channels/removeChannel',
-  async (id) => {
-    const response = await axios.delete(getChannelsUrl(id), getAuthConfig());
+  async (id, { getState }) => {
+    const state = getState();
+    const token = state.auth.token;
+    const response = await axios.delete(getChannelsUrl(id), getAuthConfig(token));
     return response.data;
   }
 );
