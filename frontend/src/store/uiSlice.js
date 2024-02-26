@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { postMessage } from "./messagesSlice";
+import { login } from "./authSlice";
 
 const initialState = {
   activeChannelId: '1',
   messageText: '',
   showChannelModal: false,
   channelModalType: 'AddChannel',
+  loginPageWarningOverlay: false,
 };
 
 const uiSlice = createSlice({
@@ -26,6 +28,15 @@ const uiSlice = createSlice({
     builder
       .addCase(postMessage.fulfilled, (state) => {
         state.messageText = '';
+      })
+      .addCase(login.fulfilled, (state) => {
+        state.loginPageWarningOverlay = false;
+      })
+      .addCase(login.pending, (state) => {
+        state.loginPageWarningOverlay = false;
+      })
+      .addCase(login.rejected, (state) => {
+        state.loginPageWarningOverlay = true;
       })
   }
 });
