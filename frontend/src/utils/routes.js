@@ -6,6 +6,7 @@ const getUserUrl = (option) => option === 'signup' ? `${baseUrl}/signup` : `${ba
 const getChannelsUrl = (id) => id ? `${baseUrl}/channels/${id}` : `${baseUrl}/channels`;
 
 const getUsername = () => localStorage.getItem('username');
+const getToken = () => localStorage.getItem('token');
 
 export {
   authConfig,
@@ -13,4 +14,5 @@ export {
   getUserUrl,
   getChannelsUrl,
   getUsername,
+  getToken,
 };
