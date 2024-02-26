@@ -3,16 +3,16 @@ import { Button, Form} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postMessage} from "../store/messagesSlice";
 import { setMessageText } from "../store/uiSlice";
-import { getUsername } from "../utils/routes";
 
 const MessagePanel = () => {
   const dispatch = useDispatch();
   const messageText = useSelector((state) => state.ui.messageText);
   const activeChannelId = useSelector(state => state.ui.activeChannelId);
+  const username = useSelector(state => state.auth.username)
 
   const sendMessage = (e) => {
     e.preventDefault();
-    const newMessage = { body: messageText, channelId: activeChannelId, username: getUsername() }
+    const newMessage = { body: messageText, channelId: activeChannelId, username }
     dispatch(postMessage(newMessage));
   }
 

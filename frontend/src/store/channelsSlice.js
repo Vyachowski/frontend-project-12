@@ -1,12 +1,14 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { authConfig, getChannelsUrl } from "../utils/routes";
+import { getAuthConfig, getChannelsUrl } from "../utils/routes";
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',
-  async () => {
-    const response = await axios.get(getChannelsUrl(), authConfig);
+  async (_, { getState }) => {
+    const state = getState();
+    const token = state.auth.token;
+    const response = await axios.get(getChannelsUrl(), getAuthConfig(token));
     return response.data;
   }
 );
@@ -14,7 +16,7 @@ export const fetchChannels = createAsyncThunk(
 export const postChannel = createAsyncThunk(
   'channels/postChannel',
   async (newChannel) => {
-    const response = await axios.post(getChannelsUrl(), newChannel, authConfig);
+    const response = await axios.post(getChannelsUrl(), newChannel, getAuthConfig());
     return response.data;
   }
 );
@@ -22,7 +24,7 @@ export const postChannel = createAsyncThunk(
 export const renameChannel = createAsyncThunk(
   'channels/renameChannel',
   async (id, name) => {
-    const response = await axios.patch(getChannelsUrl(id), { name }, authConfig);
+    const response = await axios.patch(getChannelsUrl(id), { name }, getAuthConfig());
     return response.data;
   }
 );
@@ -30,7 +32,7 @@ export const renameChannel = createAsyncThunk(
 export const removeChannel = createAsyncThunk(
   'channels/removeChannel',
   async (id) => {
-    const response = await axios.delete(getChannelsUrl(id), authConfig);
+    const response = await axios.delete(getChannelsUrl(id), getAuthConfig());
     return response.data;
   }
 );

@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { authConfig, getChannelsUrl, getToken, getUsername, getUserUrl } from "../utils/routes";
+import { getAuthConfig, getUserUrl } from "../utils/routes";
 
 export const login = createAsyncThunk(
   'auth/login',
-  async (credentials) => {
-    const response = await axios.post(getUserUrl(), credentials, authConfig);
+  async (credentials, { getState }) => {
+    const state = getState();
+    const token = state.auth.token;
+    const response = await axios.post(getUserUrl(), credentials, getAuthConfig(token));
     return response.data;
   }
 );
@@ -14,13 +16,18 @@ export const login = createAsyncThunk(
 export const signup = createAsyncThunk(
   'auth/signup',
   async (credentials) => {
-    const response = await axios.post(getChannelsUrl(), credentials, authConfig);
+    const response = await axios.post(getUserUrl(), credentials);
     return response.data;
   }
 );
 
+const getUsername = () => localStorage.getItem('username');
+const getToken = () => localStorage.getItem('token');
+
 const initialState = {
   isAuthenticated: getUsername() && getToken(),
+  username: getUsername(),
+  token: getToken(),
 };
 
 const authSlice = createSlice({
@@ -32,6 +39,8 @@ const authSlice = createSlice({
       localStorage.removeItem('username');
 
       state.isAuthenticated = false;
+      state.username = null;
+      state.token = null;
     }
   },
   extraReducers: (builder) => {
@@ -47,6 +56,8 @@ const authSlice = createSlice({
         localStorage.setItem('username', username);
 
         state.isAuthenticated = true;
+        state.username = username;
+        state.token = token;
         state.loadingStatus = 'idle';
         state.error = null;
       })
@@ -60,9 +71,13 @@ const authSlice = createSlice({
       })
       .addCase(signup.fulfilled, (state, action) => {
         const { token, username } = action.payload;
+
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
 
+        state.isAuthenticated = true;
+        state.username = username;
+        state.token = token;
         state.loadingStatus = 'idle';
         state.error = null;
       })

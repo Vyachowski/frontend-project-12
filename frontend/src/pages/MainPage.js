@@ -3,19 +3,16 @@ import { useEffect } from "react";
 
 import Header from "../components/Header.js";
 import Chat from "../components/Chat.js";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/authSlice";
-import {useDispatch, useSelector} from "react-redux";
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-    }
+    !isAuthenticated && navigate('/login');
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
@@ -34,7 +31,7 @@ const MainPage = () => {
   }, []);
 
   return (
-    !token
+    !isAuthenticated
       ? <div>Redirect to login page...</div>
       : (
         <div className={'d-flex flex-column h-100'}>
