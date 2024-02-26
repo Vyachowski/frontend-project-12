@@ -40,17 +40,6 @@ const Channels = () => {
           </svg>
           <span className="visually-hidden">+</span>
         </Button>
-        {/*<Dropdown className="d-inline mx-2">*/}
-        {/*  <Dropdown.Toggle id="dropdown-autoclose-true">*/}
-        {/*    Default Dropdown*/}
-        {/*  </Dropdown.Toggle>*/}
-
-        {/*  <Dropdown.Menu>*/}
-        {/*    <Dropdown.Item href="#">Menu Item</Dropdown.Item>*/}
-        {/*    <Dropdown.Item href="#">Menu Item</Dropdown.Item>*/}
-        {/*    <Dropdown.Item href="#">Menu Item</Dropdown.Item>*/}
-        {/*  </Dropdown.Menu>*/}
-        {/*</Dropdown>*/}
       </div>
       <ListGroup id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block" defaultActiveKey="#link1" as='ul'>
          {channels.map((channel) => (
@@ -77,18 +66,6 @@ const Channels = () => {
                     <Dropdown.Item href="#">Переименовать</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-                // <SplitButton
-                //   align='start'
-                //   key={channel.id}
-                //   id={`dropdown-split-variants-${channel.id}`}
-                //   variant={ channel.id === activeChannelId ? 'secondary' : ''}
-                //   title={channel.name}
-                //   className={'d-flex text-start text-truncate'}
-                //   onClick={() => dispatch(setActiveChannel({ activeChannelId: channel.id }))}
-                // >
-                //   <Dropdown.Item eventKey="1" active>Переименовать</Dropdown.Item>
-                //   <Dropdown.Item eventKey="2">Удалить action</Dropdown.Item>
-                // </SplitButton>
               )
               : (
                 <Button
