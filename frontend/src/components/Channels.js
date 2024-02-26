@@ -20,7 +20,6 @@ const Channels = () => {
       // case 'RemoveChannel':
       //   return <RemoveChannelModal />
       default:
-        console.log(channelModalType)
         return <AddChannelModal />
     }
   }
