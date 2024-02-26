@@ -1,9 +1,9 @@
 import { Button, Form} from "react-bootstrap";
 
-import { getUsername } from "../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { postMessage} from "../store/messagesSlice";
 import { setMessageText } from "../store/uiSlice";
+import { getUsername } from "../utils/routes";
 
 const MessagePanel = () => {
   const dispatch = useDispatch();
