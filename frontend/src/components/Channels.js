@@ -1,4 +1,4 @@
-import { Button, Col, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Dropdown, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setActiveChannel, setChannelModal } from "../store/uiSlice";
@@ -40,18 +40,67 @@ const Channels = () => {
           </svg>
           <span className="visually-hidden">+</span>
         </Button>
+        {/*<Dropdown className="d-inline mx-2">*/}
+        {/*  <Dropdown.Toggle id="dropdown-autoclose-true">*/}
+        {/*    Default Dropdown*/}
+        {/*  </Dropdown.Toggle>*/}
+
+        {/*  <Dropdown.Menu>*/}
+        {/*    <Dropdown.Item href="#">Menu Item</Dropdown.Item>*/}
+        {/*    <Dropdown.Item href="#">Menu Item</Dropdown.Item>*/}
+        {/*    <Dropdown.Item href="#">Menu Item</Dropdown.Item>*/}
+        {/*  </Dropdown.Menu>*/}
+        {/*</Dropdown>*/}
       </div>
-      <ListGroup id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-hidden h-100 d-block" defaultActiveKey="#link1" as='ul'>
+      <ListGroup id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block" defaultActiveKey="#link1" as='ul'>
          {channels.map((channel) => (
-          <ListGroupItem key={channel.id} className="nav-item p-0 w-100 overflow-hidden" as='li'>
-            <Button
-              type='button'
-              variant={ channel.id === activeChannelId ? 'secondary' : ''}
-              className={'w-100 rounded-0 text-start'}
-              onClick={() => dispatch(setActiveChannel({ activeChannelId: channel.id }))}
-            >
-              <span className="me-1">#</span>{channel.name}
-            </Button>
+          <ListGroupItem key={channel.id} className="nav-item p-0 w-100" as='li'>
+            {channel.removable
+              ? (
+                <Dropdown className={'w-100'} as={ButtonGroup}>
+                  <Button
+                    className={'w-100 rounded-0 text-start'}
+                    variant={ channel.id === activeChannelId ? 'secondary' : ''}
+                    onClick={() => dispatch(setActiveChannel({ activeChannelId: channel.id }))}
+                  >
+                    # {channel.name}
+                  </Button>
+
+                  <Dropdown.Toggle
+                    split
+                    variant={ channel.id === activeChannelId ? 'secondary' : ''}
+                    id="dropdown-split-basic"
+                  />
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#">Удалить</Dropdown.Item>
+                    <Dropdown.Item href="#">Переименовать</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                // <SplitButton
+                //   align='start'
+                //   key={channel.id}
+                //   id={`dropdown-split-variants-${channel.id}`}
+                //   variant={ channel.id === activeChannelId ? 'secondary' : ''}
+                //   title={channel.name}
+                //   className={'d-flex text-start text-truncate'}
+                //   onClick={() => dispatch(setActiveChannel({ activeChannelId: channel.id }))}
+                // >
+                //   <Dropdown.Item eventKey="1" active>Переименовать</Dropdown.Item>
+                //   <Dropdown.Item eventKey="2">Удалить action</Dropdown.Item>
+                // </SplitButton>
+              )
+              : (
+                <Button
+                  type='button'
+                  variant={ channel.id === activeChannelId ? 'secondary' : ''}
+                  className={'w-100 rounded-0 text-start'}
+                  onClick={() => dispatch(setActiveChannel({ activeChannelId: channel.id }))}
+                >
+                  <span className="me-1">#</span>{channel.name}
+                </Button>
+              )
+            }
           </ListGroupItem>
         ))}
       </ListGroup>
