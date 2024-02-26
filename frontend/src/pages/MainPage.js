@@ -17,7 +17,7 @@ const MainPage = () => {
 
   useEffect(() => {
     const handleStorageChange = (event) => {
-      if (event.key === 'token' && !event.newValue) {
+      if (['token', 'username'].includes(event.key) && !event.newValue) {
         dispatch(logout());
         navigate('/login');
       }
