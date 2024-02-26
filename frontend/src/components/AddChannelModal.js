@@ -2,10 +2,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Modal } from "react-bootstrap";
 
 import { setChannelModal } from "../store/uiSlice";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 const AddChannelModal = () => {
   const dispatch = useDispatch();
   const showChannelModal = useSelector(state => state.ui.showChannelModal);
+
+  const validationSchema = Yup.object({
+    username: Yup.string().required('Обязательное поле'),
+    password: Yup.string().required('Обязательное поле'),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      newChannelName: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: values => {
+      const { newChannelName } = values;
+
+    },
+  });
 
   return (
     <Modal show={showChannelModal} onHide={() => dispatch(setChannelModal({ showChannelModal: false }))}>
