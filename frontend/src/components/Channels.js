@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Col, Dropdown, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setActiveChannel, setChannelModal } from "../store/uiSlice";
+import { setActiveChannel, setChannelModal, setChannelModalType } from "../store/uiSlice";
 
 import RemoveChannelForm from "./RemoveChannelForm";
 import RenameChannelForm from "./RenameChannelForm";
@@ -16,15 +16,14 @@ const Channels = () => {
   const showChannelModal = useSelector(state => state.ui.showChannelModal);
   const channelModalType = useSelector(state => state.ui.channelModalType);
 
-  const renderModal = () => {
-    switch (channelModalType) {
-      case 'RenameChannel':
-        return <ModalWindow children={<RenameChannelForm/>} />
-      case 'RemoveChannel':
-        return <ModalWindow children={<RemoveChannelForm/>} />
-      default:
-        return <ModalWindow children={<AddChannelForm/>} />
-    }
+  const handleRemoveChannel = () => {
+    dispatch(setChannelModalType({ channelModalType: 'RemoveChannel' }));
+    dispatch(setChannelModal({ showChannelModal: true }));
+  }
+
+  const handleRenameChannel = () => {
+    dispatch(setChannelModalType({ channelModalType: 'RenameChannel' }));
+    dispatch(setChannelModal({ showChannelModal: true }));
   }
 
   return (
@@ -58,12 +57,18 @@ const Channels = () => {
                   <Dropdown.Toggle
                     split
                     variant={ channel.id === activeChannelId ? 'secondary' : ''}
-                    id="dropdown-split-basic"
+                    id={`dropdown-split-basic-${channel.id}`}
                   />
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#">Удалить</Dropdown.Item>
-                    <Dropdown.Item href="#">Переименовать</Dropdown.Item>
+                    <Dropdown.Item
+                      href="#"
+                      onClick={(channel) => handleRemoveChannel(channel.id)}
+                    >Удалить</Dropdown.Item>
+                    <Dropdown.Item
+                      href="#"
+                      onClick={(channel) => handleRenameChannel(channel.id)}
+                    >Переименовать</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               )
@@ -81,7 +86,22 @@ const Channels = () => {
           </ListGroupItem>
         ))}
       </ListGroup>
-      {showChannelModal && renderModal()}
+      {
+        showChannelModal && (
+          <ModalWindow children={
+            (() => {
+              switch (channelModalType) {
+                case 'RemoveChannel':
+                  return <RemoveChannelForm />;
+                case 'RenameChannel':
+                  return <RenameChannelForm />;
+                default:
+                  return <AddChannelForm />;
+              }
+            })()
+          } />
+        )
+      }
     </Col>
   )
 }
