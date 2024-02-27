@@ -26,15 +26,14 @@ const Chat = () => {
       dispatch(addChannel(channel));
     });
 
-    socket.on('removeChannel', (id) => {
-      console.log(id)
+    socket.on('removeChannel', ({ id }) => {
       dispatch(removeChannel(id));
     });
 
     socket.on('renameChannel', ({id, name}) => {
       dispatch(renameChannel({id, changes: {name}}));
     });
-  }, [dispatch])
+  })
 
   return (
     <Container className="container h-100 my-4 overflow-hidden rounded shadow">

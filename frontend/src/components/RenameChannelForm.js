@@ -13,7 +13,7 @@ const RenameChannelForm = () => {
 
   const channels = useSelector((state) => Object.values(state.channels.entities));
   const showChannelModal = useSelector(state => state.ui.showChannelModal);
-  const editingChannel = useSelector(state => state.ui.editingChannel)
+  const editingChannel = useSelector(state => state.ui.editingChannel);
 
   const channelNames = channels.map(channel => channel.name);
 

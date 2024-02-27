@@ -1,13 +1,22 @@
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { Button, Form } from "react-bootstrap";
 
+import { deleteChannel } from "../store/channelsSlice";
 import { setChannelModal } from "../store/uiSlice";
 
 const RemoveChannelForm = () => {
   const dispatch = useDispatch();
+  const {id} = useSelector(state => state.ui.editingChannel);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(deleteChannel(id))
+    dispatch(setChannelModal({ showChannelModal: false }));
+  }
 
   return (
-    <Form onSubmit={null}>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="fromChannelName">
         Уверены?
       </Form.Group>
