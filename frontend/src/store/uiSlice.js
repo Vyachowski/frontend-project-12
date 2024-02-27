@@ -9,6 +9,7 @@ const initialState = {
   showChannelModal: false,
   channelModalType: 'AddChannel',
   loginPageWarningOverlay: false,
+  editingChannel: null,
 };
 
 const uiSlice = createSlice({
@@ -26,7 +27,12 @@ const uiSlice = createSlice({
     },
     setChannelModalType: (state, action) => {
       state.channelModalType = action.payload.channelModalType;
-    }
+    },
+    setEditingChannel: (state, action) => {
+      console.log(action)
+      state.editingChannel = action.payload.editingChannel;
+      console.log(state.editingChannel)
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -48,5 +54,5 @@ const uiSlice = createSlice({
   }
 });
 
-export const { setActiveChannel, setMessageText, setChannelModal, setChannelModalType } = uiSlice.actions;
+export const { setActiveChannel, setMessageText, setChannelModal, setEditingChannel, setChannelModalType } = uiSlice.actions;
 export default uiSlice.reducer;

@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Col, Dropdown, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setActiveChannel, setChannelModal, setChannelModalType } from "../store/uiSlice";
+import { setActiveChannel, setChannelModal, setChannelModalType, setEditingChannel } from "../store/uiSlice";
 
 import RemoveChannelForm from "./RemoveChannelForm";
 import RenameChannelForm from "./RenameChannelForm";
@@ -24,14 +24,16 @@ const Channels = () => {
     dispatch(setChannelModalType({ channelModalType: 'AddChannel' }));
     dispatch(setChannelModal({ showChannelModal: true }));
   }
-  const handleRemoveChannel = () => {
+  const handleRemoveChannel = (editingChannel) => {
     dispatch(setChannelModalType({ channelModalType: 'RemoveChannel' }));
     dispatch(setChannelModal({ showChannelModal: true }));
+    dispatch(setEditingChannel({editingChannel}));
   }
 
-  const handleRenameChannel = () => {
+  const handleRenameChannel = (editingChannel) => {
     dispatch(setChannelModalType({ channelModalType: 'RenameChannel' }));
     dispatch(setChannelModal({ showChannelModal: true }));
+    dispatch(setEditingChannel({editingChannel}));
   }
 
   return (
@@ -71,11 +73,11 @@ const Channels = () => {
                   <Dropdown.Menu>
                     <Dropdown.Item
                       href="#"
-                      onClick={() => handleRemoveChannel()}
+                      onClick={() => handleRemoveChannel(channel)}
                     >Удалить</Dropdown.Item>
                     <Dropdown.Item
                       href="#"
-                      onClick={() => handleRenameChannel()}
+                      onClick={() => handleRenameChannel(channel)}
                     >Переименовать</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
