@@ -16,6 +16,10 @@ const Channels = () => {
   const showChannelModal = useSelector(state => state.ui.showChannelModal);
   const channelModalType = useSelector(state => state.ui.channelModalType);
 
+  const changeActiveChannel = ({id}) => {
+    dispatch(setActiveChannel({ activeChannelId: id }))
+  }
+
   const handleAddChannel = () => {
     dispatch(setChannelModalType({ channelModalType: 'AddChannel' }));
     dispatch(setChannelModal({ showChannelModal: true }));
@@ -53,7 +57,7 @@ const Channels = () => {
                   <Button
                     className={'w-100 text-start'}
                     variant={ channel.id === activeChannelId ? 'secondary' : ''}
-                    onClick={() => dispatch(setActiveChannel({ activeChannelId: channel.id }))}
+                    onClick={() => changeActiveChannel(channel)}
                   >
                     # {channel.name}
                   </Button>
@@ -81,7 +85,7 @@ const Channels = () => {
                   type='button'
                   variant={ channel.id === activeChannelId ? 'secondary' : ''}
                   className={'w-100 text-start'}
-                  onClick={() => dispatch(setActiveChannel({ activeChannelId: channel.id }))}
+                  onClick={() => changeActiveChannel(channel)}
                 >
                   <span className="me-1">#</span>{channel.name}
                 </Button>
