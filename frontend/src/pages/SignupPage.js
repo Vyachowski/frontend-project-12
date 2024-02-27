@@ -1,7 +1,6 @@
 import {
   Card,
   CardBody,
-  CardFooter,
   Col,
   Container,
   Image,
@@ -11,19 +10,19 @@ import {
   Form,
   Overlay
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { login } from "../store/authSlice";
+import { signup } from "../store/authSlice";
 
 import loginImg from '../assets/login.png'
 
 const SignupPage = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  const loginPageWarningOverlay = useSelector(state => state.ui.loginPageWarningOverlay);
+  const signupPageWarningOverlay = useSelector(state => state.ui.signupPageWarningOverlay);
 
   const target = useRef(null);
   const navigate = useNavigate();
@@ -32,17 +31,19 @@ const SignupPage = () => {
   const validationSchema = Yup.object({
     username: Yup.string().required('Обязательное поле'),
     password: Yup.string().required('Обязательное поле'),
+    passwordConfirmation: Yup.string().required('Обязательное поле'),
   });
 
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
+      passwordConfirmation: '',
     },
     validationSchema: validationSchema,
     onSubmit: values => {
       const { username, password } = values;
-      dispatch(login({ username, password }));
+      dispatch(signup({ username, password }));
     },
   });
 
@@ -63,10 +64,10 @@ const SignupPage = () => {
                 <h1 className={'text-center mb-4'}>Войти</h1>
                 <Form.Group className="mb-3">
                   <InputGroup className={'mb-3'}>
-                    <Form.FloatingLabel label={'Ваш ник'} controlId="username">
+                    <Form.FloatingLabel label={'Имя пользователя'} controlId="username">
                       <Form.Control
                         type="text"
-                        placeholder="Ваш ник"
+                        placeholder="Имя пользователя"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.username}
@@ -86,12 +87,24 @@ const SignupPage = () => {
                       />
                     </Form.FloatingLabel>
                   </InputGroup>
+                  <InputGroup className={'mb-4'}>
+                    <Form.FloatingLabel label={'Потверждение пароля'} controlId="passwordConfirmation">
+                      <Form.Control
+                        type="password"
+                        placeholder="Подтвердите пароль"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.passwordConfirmation}
+                        isInvalid={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
+                      />
+                    </Form.FloatingLabel>
+                  </InputGroup>
                 </Form.Group>
-                <Overlay target={target.current} show={loginPageWarningOverlay} placement="top-start">
+                <Overlay target={target.current} show={signupPageWarningOverlay} placement="top-start">
                   {({
                       placement: _placement,
                       arrowProps: _arrowProps,
-                      show: loginPageWarningOverlay,
+                      show: signupPageWarningOverlay,
                       popper: _popper,
                       hasDoneInitialMeasure: _hasDoneInitialMeasure,
                       ...props
@@ -107,21 +120,20 @@ const SignupPage = () => {
                         ...props.style,
                       }}
                     >
-                      Неверные имя пользователя или пароль
+                      Такой пользователь уже существует
                     </div>
                   )}
                 </Overlay>
-                <Button type={'submit'} ref={target} variant={'outline-primary'} className={'w-100 mb-3'}>Войти</Button>
+                <Button
+                  type={'submit'}
+                  ref={target}
+                  variant={'outline-primary'}
+                  className={'w-100 mb-3'}
+                >
+                  Зарегистрироваться
+                </Button>
               </Form>
             </CardBody>
-            <CardFooter className={'p-4'}>
-              <p className={'text-center mb-0'}>
-                <span>Нет аккаунта? </span>
-                <Link to={'/signup'}>
-                  Регистрация
-                </Link>
-              </p>
-            </CardFooter>
           </Card>
         </Col>
       </Row>
