@@ -17,9 +17,9 @@ import { useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { signup } from "../store/authSlice";
+import signupImg from '../assets/signup.jpg';
 
-import loginImg from '../assets/login.png'
+import { signup } from "../store/authSlice";
 
 const SignupPage = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -59,7 +59,7 @@ const SignupPage = () => {
           <Card className={'shadow-sm'}>
             <CardBody className={'row p-5'}>
               <Col className={'col-12 col-md-6 d-flex align-items-center justify-content-center'}>
-                <Image src={loginImg} className={'rounded-circle'} alt={'Welcome to the app.'} width={200}/>
+                <Image src={signupImg} className={'rounded-circle'} alt={'Welcome to the app.'} width={200}/>
               </Col>
               <Form className={'col-12 col-md-6 mt-3 mt-mb-0'} onSubmit={formik.handleSubmit}>
                 <h1 className={'text-center mb-4'}>Войти</h1>
