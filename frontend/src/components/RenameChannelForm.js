@@ -4,17 +4,18 @@ import { useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { postChannel } from "../store/channelsSlice";
+import { patchChannel } from "../store/channelsSlice";
 import { setChannelModal } from "../store/uiSlice";
 
 const RenameChannelForm = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const showChannelModal = useSelector(state => state.ui.showChannelModal);
+
   const channels = useSelector((state) => Object.values(state.channels.entities));
-  const activeChannelId = useSelector(state => state.ui.activeChannelId);
+  const showChannelModal = useSelector(state => state.ui.showChannelModal);
+  const editingChannel = useSelector(state => state.ui.editingChannel)
+
   const channelNames = channels.map(channel => channel.name);
-  const currentChannel = channels.filter((channel) => channel.id === activeChannelId)
 
   const validationSchema = Yup.object({
     newChannelName: Yup
@@ -29,14 +30,14 @@ const RenameChannelForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      newChannelName: currentChannel.name,
+      newChannelName: editingChannel.name,
     },
     validateOnChange: false,
     validateOnBlur: false,
     validationSchema: validationSchema,
     onSubmit: values => {
-      const { newChannelName } = values;
-      dispatch(postChannel(newChannelName))
+      const { newChannelName: name } = values;
+      dispatch(patchChannel( { name, id: editingChannel.id }))
       dispatch(setChannelModal({ showChannelModal: false }));
     },
   });

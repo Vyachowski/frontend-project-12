@@ -23,7 +23,7 @@ export const postChannel = createAsyncThunk(
   }
 );
 
-export const renameChannel = createAsyncThunk(
+export const patchChannel = createAsyncThunk(
   'channels/renameChannel',
   async ({ id, name }, { getState }) => {
     const state = getState();
@@ -33,7 +33,7 @@ export const renameChannel = createAsyncThunk(
   }
 );
 
-export const removeChannel = createAsyncThunk(
+export const deleteChannel = createAsyncThunk(
   'channels/removeChannel',
   async (id, { getState }) => {
     const state = getState();
@@ -84,6 +84,6 @@ const channelsSlice = createSlice({
   }
 });
 
-export const { addChannel, addChannels } = channelsSlice.actions;
+export const { addChannel, renameChannel, removeChannel } = channelsSlice.actions;
 
 export default channelsSlice.reducer;

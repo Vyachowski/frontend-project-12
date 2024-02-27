@@ -22,18 +22,19 @@ const Chat = () => {
       dispatch(addMessage(message));
     });
 
-    socket.on('newChannel', (message) => {
-      dispatch(addChannel(message));
+    socket.on('newChannel', (channel) => {
+      dispatch(addChannel(channel));
     });
 
-    socket.on('removeChannel', (message) => {
-      dispatch(removeChannel(message));
+    socket.on('removeChannel', (id) => {
+      console.log(id)
+      dispatch(removeChannel(id));
     });
 
-    socket.on('renameChannel', (message) => {
-      dispatch(renameChannel(message));
+    socket.on('renameChannel', ({id, name}) => {
+      dispatch(renameChannel({id, changes: {name}}));
     });
-  })
+  }, [dispatch])
 
   return (
     <Container className="container h-100 my-4 overflow-hidden rounded shadow">
