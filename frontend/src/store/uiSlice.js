@@ -29,9 +29,7 @@ const uiSlice = createSlice({
       state.channelModalType = action.payload.channelModalType;
     },
     setEditingChannel: (state, action) => {
-      console.log(action)
       state.editingChannel = action.payload.editingChannel;
-      console.log(state.editingChannel)
     },
   },
   extraReducers: (builder) => {
