@@ -63,10 +63,10 @@ const LoginPage = () => {
                 <h1 className={'text-center mb-4'}>Войти</h1>
                 <Form.Group className="mb-3">
                   <InputGroup className={'mb-3'}>
-                    <Form.FloatingLabel label={'Ваш ник'} controlId="username">
+                    <Form.FloatingLabel label={'Имя пользователя'} controlId="username">
                       <Form.Control
                         type="text"
-                        placeholder="Ваш ник"
+                        placeholder="Имя пользователя"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.username}
