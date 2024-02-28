@@ -1,13 +1,17 @@
-import { Container, Row } from "react-bootstrap";
+import { Container, Row } from 'react-bootstrap';
 
-import { useEffect } from "react";
-import { io } from "socket.io-client";
-import { useDispatch } from "react-redux";
+import { useEffect } from 'react';
+import { io } from 'socket.io-client';
+import { useDispatch } from 'react-redux';
 
-import { addChannel, fetchChannels, removeChannel, renameChannel } from "../store/channelsSlice";
-import { addMessage, fetchMessages } from "../store/messagesSlice";
-import Channels from "./Channels";
-import Messages from "./Messages";
+import {
+  addChannel, fetchChannels, removeChannel, renameChannel,
+} from '../store/channelsSlice';
+import { addMessage, fetchMessages } from '../store/messagesSlice';
+import Channels from './Channels';
+import Messages from './Messages';
+
+const socket = io();
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -15,9 +19,9 @@ const Chat = () => {
   useEffect(() => {
     dispatch(fetchChannels());
     dispatch(fetchMessages());
-  }, [dispatch])
+  }, [dispatch]);
 
-  useEffect(()=> {
+  useEffect(() => {
     socket.on('newMessage', (message) => {
       dispatch(addMessage(message));
     });
@@ -30,10 +34,10 @@ const Chat = () => {
       dispatch(removeChannel(id));
     });
 
-    socket.on('renameChannel', ({id, name}) => {
-      dispatch(renameChannel({id, changes: {name}}));
+    socket.on('renameChannel', ({ id, name }) => {
+      dispatch(renameChannel({ id, changes: { name } }));
     });
-  })
+  });
 
   return (
     <Container className="container h-100 my-4 overflow-hidden rounded shadow">
@@ -42,8 +46,7 @@ const Chat = () => {
         <Messages />
       </Row>
     </Container>
-  )
-}
+  );
+};
 
 export default Chat;
-export const socket = io();

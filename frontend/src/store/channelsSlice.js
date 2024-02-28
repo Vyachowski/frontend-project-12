@@ -1,46 +1,46 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-import { getAuthConfig, getChannelsUrl } from "../utils/routes";
+import { getAuthConfig, getChannelsUrl } from '../utils/routes';
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',
   async (_, { getState }) => {
     const state = getState();
-    const token = state.auth.token;
+    const { token } = state.auth;
     const response = await axios.get(getChannelsUrl(), getAuthConfig(token));
     return response.data;
-  }
+  },
 );
 
 export const postChannel = createAsyncThunk(
   'channels/postChannel',
   async (name, { getState }) => {
     const state = getState();
-    const token = state.auth.token;
+    const { token } = state.auth;
     const response = await axios.post(getChannelsUrl(), { name }, getAuthConfig(token));
     return response.data;
-  }
+  },
 );
 
 export const patchChannel = createAsyncThunk(
   'channels/renameChannel',
   async ({ id, name }, { getState }) => {
     const state = getState();
-    const token = state.auth.token;
+    const { token } = state.auth;
     const response = await axios.patch(getChannelsUrl(id), { name }, getAuthConfig(token));
     return response.data;
-  }
+  },
 );
 
 export const deleteChannel = createAsyncThunk(
   'channels/removeChannel',
   async (id, { getState }) => {
     const state = getState();
-    const token = state.auth.token;
+    const { token } = state.auth;
     const response = await axios.delete(getChannelsUrl(id), getAuthConfig(token));
     return response.data;
-  }
+  },
 );
 
 const channelsAdapter = createEntityAdapter();
@@ -70,9 +70,9 @@ const channelsSlice = createSlice({
         state.error = action.error;
       })
       .addCase(postChannel.pending, (state) => {
-          state.loadingStatus = 'loading';
-          state.error = null;
-        })
+        state.loadingStatus = 'loading';
+        state.error = null;
+      })
       .addCase(postChannel.fulfilled, (state) => {
         state.loadingStatus = 'idle';
         state.error = null;
@@ -81,7 +81,7 @@ const channelsSlice = createSlice({
         state.loadingStatus = 'failed';
         state.error = action.error;
       });
-  }
+  },
 });
 
 export const { addChannel, renameChannel, removeChannel } = channelsSlice.actions;

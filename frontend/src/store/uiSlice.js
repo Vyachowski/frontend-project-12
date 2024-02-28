@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { postMessage } from "./messagesSlice";
-import { login } from "./authSlice";
-import { postChannel } from "./channelsSlice";
+import { createSlice } from '@reduxjs/toolkit';
+import { postMessage } from './messagesSlice';
+import { login } from './authSlice';
+import { postChannel } from './channelsSlice';
 
 const initialState = {
   activeChannelId: '1',
@@ -48,9 +48,11 @@ const uiSlice = createSlice({
       })
       .addCase(postChannel.fulfilled, (state, action) => {
         state.activeChannelId = action.payload.id;
-      })
-  }
+      });
+  },
 });
 
-export const { setActiveChannel, setMessageText, setChannelModal, setEditingChannel, setChannelModalType } = uiSlice.actions;
+export const {
+  setActiveChannel, setMessageText, setChannelModal, setEditingChannel, setChannelModalType,
+} = uiSlice.actions;
 export default uiSlice.reducer;

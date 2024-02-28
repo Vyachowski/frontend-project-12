@@ -1,26 +1,26 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-import { getAuthConfig, getMessageUrl } from "../utils/routes";
+import { getAuthConfig, getMessageUrl } from '../utils/routes';
 
 export const fetchMessages = createAsyncThunk(
   'messages/fetchMessages',
   async (_, { getState }) => {
     const state = getState();
-    const token = state.auth.token;
+    const { token } = state.auth;
     const response = await axios.get(getMessageUrl(), getAuthConfig(token));
     return response.data;
-  }
+  },
 );
 
 export const postMessage = createAsyncThunk(
   'messages/postMessage',
   async (newMessage, { getState }) => {
     const state = getState();
-    const token = state.auth.token;
+    const { token } = state.auth;
     const response = await axios.post(getMessageUrl(), newMessage, getAuthConfig(token));
     return response.data;
-  }
+  },
 );
 
 const messagesAdapter = createEntityAdapter();
@@ -48,9 +48,9 @@ const messagesSlice = createSlice({
         state.error = action.error;
       })
       .addCase(postMessage.pending, (state) => {
-          state.loadingStatus = 'loading';
-          state.error = null;
-        })
+        state.loadingStatus = 'loading';
+        state.error = null;
+      })
       .addCase(postMessage.fulfilled, (state) => {
         state.loadingStatus = 'idle';
         state.error = null;
@@ -59,7 +59,7 @@ const messagesSlice = createSlice({
         state.loadingStatus = 'failed';
         state.error = action.error;
       });
-  }
+  },
 });
 
 export const { addMessage, addMessages } = messagesSlice.actions;

@@ -1,4 +1,4 @@
-import { configureStore} from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 
 import messagesReducer from './messagesSlice';
 import channelsReducer from './channelsSlice';

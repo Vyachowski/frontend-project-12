@@ -1,7 +1,7 @@
-import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { logout } from "../store/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../store/authSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Header = () => {
         <Button type="button" className="btn btn-primary" onClick={handleLogout}>Выйти</Button>
       </div>
     </nav>
-  )
-}
+  );
+};
 
 export default Header;

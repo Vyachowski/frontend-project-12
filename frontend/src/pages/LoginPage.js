@@ -9,21 +9,21 @@ import {
   Button,
   InputGroup,
   Form,
-  Overlay
-} from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+  Overlay,
+} from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
-import { login } from "../store/authSlice";
+import { login } from '../store/authSlice';
 
-import loginImg from '../assets/login.png'
+import loginImg from '../assets/login.png';
 
 const LoginPage = () => {
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  const loginPageWarningOverlay = useSelector(state => state.ui.loginPageWarningOverlay);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const loginPageWarningOverlay = useSelector((state) => state.ui.loginPageWarningOverlay);
 
   const target = useRef(null);
   const navigate = useNavigate();
@@ -39,31 +39,31 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    validationSchema: validationSchema,
-    onSubmit: values => {
+    validationSchema,
+    onSubmit: (values) => {
       const { username, password } = values;
       dispatch(login({ username, password }));
     },
   });
 
   useEffect(() => {
-    isAuthenticated && navigate('/');
+    if (isAuthenticated) navigate('/');
   }, [isAuthenticated, navigate]);
 
   return (
-    <Container fluid className={'h-100'}>
-      <Row className={'justify-content-center align-content-center h-100'}>
-        <Col className={'col-12 col-md-8 col-xxl-6'}>
-          <Card className={'shadow-sm'}>
-            <CardBody className={'row p-5'}>
-              <Col className={'col-12 col-md-6 d-flex align-items-center justify-content-center'}>
-                <Image src={loginImg} className={'rounded-circle'} alt={'Welcome to the app.'} width={200}/>
+    <Container fluid className="h-100">
+      <Row className="justify-content-center align-content-center h-100">
+        <Col className="col-12 col-md-8 col-xxl-6">
+          <Card className="shadow-sm">
+            <CardBody className="row p-5">
+              <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <Image src={loginImg} className="rounded-circle" alt="Welcome to the app." width={200} />
               </Col>
-              <Form className={'col-12 col-md-6 mt-3 mt-mb-0'} onSubmit={formik.handleSubmit}>
-                <h1 className={'text-center mb-4'}>Войти</h1>
+              <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
+                <h1 className="text-center mb-4">Войти</h1>
                 <Form.Group className="mb-3">
-                  <InputGroup className={'mb-3'}>
-                    <Form.FloatingLabel label={'Имя пользователя'} controlId="username">
+                  <InputGroup className="mb-3">
+                    <Form.FloatingLabel label="Имя пользователя" controlId="username">
                       <Form.Control
                         type="text"
                         placeholder="Имя пользователя"
@@ -74,8 +74,8 @@ const LoginPage = () => {
                       />
                     </Form.FloatingLabel>
                   </InputGroup>
-                  <InputGroup className={'mb-4'}>
-                    <Form.FloatingLabel label={'Пароль'} controlId="password">
+                  <InputGroup className="mb-4">
+                    <Form.FloatingLabel label="Пароль" controlId="password">
                       <Form.Control
                         type="password"
                         placeholder="Пароль"
@@ -89,13 +89,13 @@ const LoginPage = () => {
                 </Form.Group>
                 <Overlay target={target.current} show={loginPageWarningOverlay} placement="top-start">
                   {({
-                      placement: _placement,
-                      arrowProps: _arrowProps,
-                      show: loginPageWarningOverlay,
-                      popper: _popper,
-                      hasDoneInitialMeasure: _hasDoneInitialMeasure,
-                      ...props
-                    }) => (
+                    placement: _placement,
+                    arrowProps: _arrowProps,
+                    show: _show,
+                    popper: _popper,
+                    hasDoneInitialMeasure: _hasDoneInitialMeasure,
+                    ...props
+                  }) => (
                     <div
                       {...props}
                       style={{
@@ -111,13 +111,13 @@ const LoginPage = () => {
                     </div>
                   )}
                 </Overlay>
-                <Button type={'submit'} ref={target} variant={'outline-primary'} className={'w-100 mb-3'}>Войти</Button>
+                <Button type="submit" ref={target} variant="outline-primary" className="w-100 mb-3">Войти</Button>
               </Form>
             </CardBody>
-            <CardFooter className={'p-4'}>
-              <p className={'text-center mb-0'}>
+            <CardFooter className="p-4">
+              <p className="text-center mb-0">
                 <span>Нет аккаунта? </span>
-                <Link to={'/signup'}>
+                <Link to="/signup">
                   Регистрация
                 </Link>
               </p>
@@ -127,6 +127,6 @@ const LoginPage = () => {
       </Row>
     </Container>
   );
-}
+};
 
 export default LoginPage;

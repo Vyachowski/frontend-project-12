@@ -8,22 +8,22 @@ import {
   Button,
   InputGroup,
   Form,
-  Overlay
-} from "react-bootstrap";
+  Overlay,
+} from 'react-bootstrap';
 
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 import signupImg from '../assets/signup.jpg';
 
-import { signup } from "../store/authSlice";
+import { signup } from '../store/authSlice';
 
 const SignupPage = () => {
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  const signupPageWarningOverlay = useSelector(state => state.ui.signupPageWarningOverlay);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const signupPageWarningOverlay = useSelector((state) => state.ui.signupPageWarningOverlay);
 
   const target = useRef(null);
   const navigate = useNavigate();
@@ -43,31 +43,31 @@ const SignupPage = () => {
       password: '',
       passwordConfirmation: '',
     },
-    validationSchema: validationSchema,
-    onSubmit: values => {
+    validationSchema,
+    onSubmit: (values) => {
       const { username, password } = values;
       dispatch(signup({ username, password }));
     },
   });
 
   useEffect(() => {
-    isAuthenticated && navigate('/');
+    if (isAuthenticated) navigate('/');
   }, [isAuthenticated, navigate]);
 
   return (
-    <Container fluid className={'h-100'}>
-      <Row className={'justify-content-center align-content-center h-100'}>
-        <Col className={'col-12 col-md-8 col-xxl-6'}>
-          <Card className={'shadow-sm'}>
-            <CardBody className={'row p-5'}>
-              <Col className={'col-12 col-md-6 d-flex align-items-center justify-content-center'}>
-                <Image src={signupImg} className={'rounded-circle'} alt={'Welcome to the app.'} width={200}/>
+    <Container fluid className="h-100">
+      <Row className="justify-content-center align-content-center h-100">
+        <Col className="col-12 col-md-8 col-xxl-6">
+          <Card className="shadow-sm">
+            <CardBody className="row p-5">
+              <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <Image src={signupImg} className="rounded-circle" alt="Welcome to the app." width={200} />
               </Col>
-              <Form className={'col-12 col-md-6 mt-3 mt-mb-0'} onSubmit={formik.handleSubmit}>
-                <h1 className={'text-center mb-4'}>Войти</h1>
+              <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
+                <h1 className="text-center mb-4">Войти</h1>
                 <Form.Group className="mb-3">
-                  <InputGroup className={'mb-3'}>
-                    <Form.FloatingLabel label={'Имя пользователя'} controlId="username">
+                  <InputGroup className="mb-3">
+                    <Form.FloatingLabel label="Имя пользователя" controlId="username">
                       <Form.Control
                         type="text"
                         placeholder="Имя пользователя"
@@ -78,8 +78,8 @@ const SignupPage = () => {
                       />
                     </Form.FloatingLabel>
                   </InputGroup>
-                  <InputGroup className={'mb-4'}>
-                    <Form.FloatingLabel label={'Пароль'} controlId="password">
+                  <InputGroup className="mb-4">
+                    <Form.FloatingLabel label="Пароль" controlId="password">
                       <Form.Control
                         type="password"
                         placeholder="Пароль"
@@ -90,28 +90,31 @@ const SignupPage = () => {
                       />
                     </Form.FloatingLabel>
                   </InputGroup>
-                  <InputGroup className={'mb-4'}>
-                    <Form.FloatingLabel label={'Подтверждение пароля'} controlId="passwordConfirmation">
+                  <InputGroup className="mb-4">
+                    <Form.FloatingLabel label="Подтверждение пароля" controlId="passwordConfirmation">
                       <Form.Control
                         type="password"
                         placeholder="Подтвердите пароль"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.passwordConfirmation}
-                        isInvalid={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
+                        isInvalid={
+                        formik.touched.passwordConfirmation
+                          && formik.errors.passwordConfirmation
+                      }
                       />
                     </Form.FloatingLabel>
                   </InputGroup>
                 </Form.Group>
                 <Overlay target={target.current} show={signupPageWarningOverlay} placement="top-start">
                   {({
-                      placement: _placement,
-                      arrowProps: _arrowProps,
-                      show: signupPageWarningOverlay,
-                      popper: _popper,
-                      hasDoneInitialMeasure: _hasDoneInitialMeasure,
-                      ...props
-                    }) => (
+                    placement: _placement,
+                    arrowProps: _arrowProps,
+                    show: _show,
+                    popper: _popper,
+                    hasDoneInitialMeasure: _hasDoneInitialMeasure,
+                    ...props
+                  }) => (
                     <div
                       {...props}
                       style={{
@@ -128,10 +131,10 @@ const SignupPage = () => {
                   )}
                 </Overlay>
                 <Button
-                  type={'submit'}
+                  type="submit"
                   ref={target}
-                  variant={'outline-primary'}
-                  className={'w-100 mb-3'}
+                  variant="outline-primary"
+                  className="w-100 mb-3"
                 >
                   Зарегистрироваться
                 </Button>
@@ -142,6 +145,6 @@ const SignupPage = () => {
       </Row>
     </Container>
   );
-}
+};
 
 export default SignupPage;

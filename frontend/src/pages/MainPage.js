@@ -1,19 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-import Header from "../components/Header.js";
-import Chat from "../components/Chat.js";
+import Header from '../components/Header.js';
+import Chat from '../components/Chat.js';
 
-import { logout } from "../store/authSlice";
+import { logout } from '../store/authSlice';
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
-    !isAuthenticated && navigate('/login');
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
@@ -33,14 +35,14 @@ const MainPage = () => {
 
   return (
     !isAuthenticated
-      ? <div className={'text-center d-flex justify-content-center align-items-center'}>Redirect to login page...</div>
+      ? <div className="text-center d-flex justify-content-center align-items-center">Redirect to login page...</div>
       : (
-        <div className={'d-flex flex-column h-100'}>
+        <div className="d-flex flex-column h-100">
           <Header />
           <Chat />
         </div>
       )
   );
-}
+};
 
 export default MainPage;
