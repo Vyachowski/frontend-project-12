@@ -32,7 +32,9 @@ const SignupPage = () => {
   const validationSchema = Yup.object({
     username: Yup.string().required('Обязательное поле'),
     password: Yup.string().required('Обязательное поле'),
-    passwordConfirmation: Yup.string().required('Обязательное поле'),
+    passwordConfirmation: Yup.string()
+      .required('Обязательное поле')
+      .oneOf([Yup.ref('password'), null], 'Passwords must match'),
   });
 
   const formik = useFormik({
@@ -89,7 +91,7 @@ const SignupPage = () => {
                     </Form.FloatingLabel>
                   </InputGroup>
                   <InputGroup className={'mb-4'}>
-                    <Form.FloatingLabel label={'Потверждение пароля'} controlId="passwordConfirmation">
+                    <Form.FloatingLabel label={'Подтверждение пароля'} controlId="passwordConfirmation">
                       <Form.Control
                         type="password"
                         placeholder="Подтвердите пароль"
