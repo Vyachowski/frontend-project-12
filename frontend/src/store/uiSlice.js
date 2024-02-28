@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { postMessage } from './messagesSlice';
-import { login } from './authSlice';
+import { login, signup } from './authSlice';
 import { postChannel } from './channelsSlice';
 
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
   showChannelModal: false,
   channelModalType: 'AddChannel',
   loginPageWarningOverlay: false,
+  signupPageWarningOverlay: false,
   editingChannel: null,
 };
 
@@ -45,6 +46,15 @@ const uiSlice = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.loginPageWarningOverlay = true;
+      })
+      .addCase(signup.fulfilled, (state) => {
+        state.signupPageWarningOverlay = false;
+      })
+      .addCase(signup.pending, (state) => {
+        state.signupPageWarningOverlay = false;
+      })
+      .addCase(signup.rejected, (state) => {
+        state.signupPageWarningOverlay = true;
       })
       .addCase(postChannel.fulfilled, (state, action) => {
         state.activeChannelId = action.payload.id;
