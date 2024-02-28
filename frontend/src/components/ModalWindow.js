@@ -7,11 +7,15 @@ const ModalWindow = ({ children, title }) => {
   const dispatch = useDispatch;
   const showChannelModal = useSelector((state) => state.ui.showChannelModal);
 
+  const handleHide = () => {
+    dispatch(setChannelModal({ showChannelModal: false }));
+  }
+
   return (
     <Modal
       show={showChannelModal}
       centered
-      onHide={() => dispatch(setChannelModal({ showChannelModal: false }))}
+      onHide={() => handleHide()}
     >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
