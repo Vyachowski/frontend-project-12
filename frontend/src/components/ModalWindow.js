@@ -9,7 +9,7 @@ const ModalWindow = ({ children, title }) => {
 
   const handleHide = () => {
     dispatch(setChannelModal({ showChannelModal: false }));
-  };
+  }
 
   return (
     <Modal
