@@ -15,7 +15,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 
 import { login } from '../store/authSlice';
 
@@ -29,17 +28,11 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const validationSchema = Yup.object({
-    username: Yup.string().required('Обязательное поле'),
-    password: Yup.string().required('Обязательное поле'),
-  });
-
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
-    validationSchema,
     onSubmit: (values) => {
       const { username, password } = values;
       dispatch(login({ username, password }));
