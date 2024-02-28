@@ -55,7 +55,7 @@ const LoginPage = () => {
               <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
                 <h1 className="text-center mb-4">Войти</h1>
                 <Form.Group className="mb-3">
-                  <InputGroup className="mb-3">
+                  <InputGroup className="mb-4">
                     <Form.FloatingLabel label="Имя пользователя" controlId="username">
                       <Form.Control
                         type="text"
@@ -67,7 +67,7 @@ const LoginPage = () => {
                       />
                     </Form.FloatingLabel>
                   </InputGroup>
-                  <InputGroup className="mb-4">
+                  <InputGroup className="mb-4" ref={target}>
                     <Form.FloatingLabel label="Пароль" controlId="password">
                       <Form.Control
                         type="password"
@@ -79,32 +79,32 @@ const LoginPage = () => {
                       />
                     </Form.FloatingLabel>
                   </InputGroup>
+                  <Overlay target={target.current} show={loginPageWarningOverlay} placement="bottom-start">
+                    {({
+                      placement: _placement,
+                      arrowProps: _arrowProps,
+                      show: _show,
+                      popper: _popper,
+                      hasDoneInitialMeasure: _hasDoneInitialMeasure,
+                      ...props
+                    }) => (
+                      <div
+                        {...props}
+                        style={{
+                          position: 'absolute',
+                          backgroundColor: 'rgba(220, 53, 69, 0.9)',
+                          padding: '2px 10px',
+                          color: 'white',
+                          borderRadius: 2.5,
+                          ...props.style,
+                        }}
+                      >
+                        Неверные имя пользователя или пароль
+                      </div>
+                    )}
+                  </Overlay>
                 </Form.Group>
-                <Overlay target={target.current} show={loginPageWarningOverlay} placement="top-start">
-                  {({
-                    placement: _placement,
-                    arrowProps: _arrowProps,
-                    show: _show,
-                    popper: _popper,
-                    hasDoneInitialMeasure: _hasDoneInitialMeasure,
-                    ...props
-                  }) => (
-                    <div
-                      {...props}
-                      style={{
-                        position: 'absolute',
-                        backgroundColor: 'rgba(220, 53, 69, 0.9)',
-                        padding: '2px 10px',
-                        color: 'white',
-                        borderRadius: 2.5,
-                        ...props.style,
-                      }}
-                    >
-                      Неверные имя пользователя или пароль
-                    </div>
-                  )}
-                </Overlay>
-                <Button type="submit" ref={target} variant="outline-primary" className="w-100 mb-3">Войти</Button>
+                <Button type="submit" variant="outline-primary" className="w-100 mb-3">Войти</Button>
               </Form>
             </CardBody>
             <CardFooter className="p-4">
