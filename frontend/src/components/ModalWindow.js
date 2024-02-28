@@ -9,9 +9,7 @@ const ModalWindow = ({ children, title }) => {
 
   const handleHide = () => {
     dispatch(setChannelModal({ showChannelModal: false }));
-  }
-
-  const bublik = 1;
+  };
 
   return (
     <Modal
@@ -20,7 +18,9 @@ const ModalWindow = ({ children, title }) => {
       onHide={() => handleHide()}
     >
       <Modal.Header closeButton>
-        <Modal.Title>{title}{bublik     }</Modal.Title>
+        <Modal.Title>
+          {title}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {children}
