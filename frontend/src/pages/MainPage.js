@@ -29,7 +29,7 @@ const MainPage = () => {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, []);
+  });
 
   return (
     !isAuthenticated
