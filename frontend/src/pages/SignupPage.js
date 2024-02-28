@@ -23,18 +23,29 @@ import { signup } from '../store/authSlice';
 
 const SignupPage = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const signupPageWarningOverlay = useSelector((state) => state.ui.signupPageWarningOverlay);
+  const signupPageOverlay = useSelector((state) => state.ui.signupPageOverlay);
+  const signupPageErrors = useSelector((state) => state.app.signupPageErrors);
 
-  const target = useRef(null);
+  const usernameOverlay = useRef(null);
+  const passwordOverlay = useRef(null);
+  const passwordConfirmationOverlay = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const validationSchema = Yup.object({
-    username: Yup.string().required('Обязательное поле'),
-    password: Yup.string().required('Обязательное поле'),
-    passwordConfirmation: Yup.string()
+    username: Yup
+      .string()
       .required('Обязательное поле')
-      .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+      .min(3, 'От 3 до 20 символов')
+      .max(20, 'От 3 до 20 символов'),
+    password: Yup
+      .string()
+      .required('Обязательное поле')
+      .min(6, 'Не менее 6 символов'),
+    passwordConfirmation: Yup
+      .string()
+      .required('Обязательное поле')
+      .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
   });
 
   const formik = useFormik({
@@ -43,6 +54,8 @@ const SignupPage = () => {
       password: '',
       passwordConfirmation: '',
     },
+    validateOnChange: false,
+    validateOnBlur: false,
     validationSchema,
     onSubmit: (values) => {
       const { username, password } = values;
@@ -66,7 +79,7 @@ const SignupPage = () => {
               <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
                 <h1 className="text-center mb-4">Войти</h1>
                 <Form.Group className="mb-3">
-                  <InputGroup className="mb-3">
+                  <InputGroup className="mb-4" ref={usernameOverlay}>
                     <Form.FloatingLabel label="Имя пользователя" controlId="username">
                       <Form.Control
                         type="text"
@@ -78,7 +91,36 @@ const SignupPage = () => {
                       />
                     </Form.FloatingLabel>
                   </InputGroup>
-                  <InputGroup className="mb-4">
+                  {
+                    formik.errors.username
+                    && (
+                    <Overlay target={usernameOverlay.current} show placement="bottom-start">
+                      {({
+                        placement: _placement,
+                        arrowProps: _arrowProps,
+                        show: _show,
+                        popper: _popper,
+                        hasDoneInitialMeasure: _hasDoneInitialMeasure,
+                        ...props
+                      }) => (
+                        <div
+                          {...props}
+                          style={{
+                            position: 'absolute',
+                            backgroundColor: 'rgba(220, 53, 69, 0.9)',
+                            padding: '2px 10px',
+                            color: 'white',
+                            borderRadius: 2.5,
+                            ...props.style,
+                          }}
+                        >
+                          {formik.errors.username}
+                        </div>
+                      )}
+                    </Overlay>
+                    )
+                  }
+                  <InputGroup className="mb-4" ref={passwordOverlay}>
                     <Form.FloatingLabel label="Пароль" controlId="password">
                       <Form.Control
                         type="password"
@@ -90,7 +132,36 @@ const SignupPage = () => {
                       />
                     </Form.FloatingLabel>
                   </InputGroup>
-                  <InputGroup className="mb-4">
+                  {
+                    formik.errors.password
+                    && (
+                    <Overlay target={passwordOverlay.current} show placement="bottom-start">
+                      {({
+                        placement: _placement,
+                        arrowProps: _arrowProps,
+                        show: _show,
+                        popper: _popper,
+                        hasDoneInitialMeasure: _hasDoneInitialMeasure,
+                        ...props
+                      }) => (
+                        <div
+                          {...props}
+                          style={{
+                            position: 'absolute',
+                            backgroundColor: 'rgba(220, 53, 69, 0.9)',
+                            padding: '2px 10px',
+                            color: 'white',
+                            borderRadius: 2.5,
+                            ...props.style,
+                          }}
+                        >
+                          {formik.errors.password}
+                        </div>
+                      )}
+                    </Overlay>
+                    )
+                  }
+                  <InputGroup className="mb-4" ref={passwordConfirmationOverlay}>
                     <Form.FloatingLabel label="Подтверждение пароля" controlId="passwordConfirmation">
                       <Form.Control
                         type="password"
@@ -105,34 +176,39 @@ const SignupPage = () => {
                       />
                     </Form.FloatingLabel>
                   </InputGroup>
+                  {
+                    (formik.errors.passwordConfirmation || signupPageOverlay)
+                    && (
+                    <Overlay target={passwordConfirmationOverlay.current} show placement="bottom-start">
+                      {({
+                        placement: _placement,
+                        arrowProps: _arrowProps,
+                        show: _show,
+                        popper: _popper,
+                        hasDoneInitialMeasure: _hasDoneInitialMeasure,
+                        ...props
+                      }) => (
+                        <div
+                          {...props}
+                          style={{
+                            position: 'absolute',
+                            backgroundColor: 'rgba(220, 53, 69, 0.9)',
+                            padding: '2px 10px',
+                            color: 'white',
+                            borderRadius: 2.5,
+                            ...props.style,
+                          }}
+                        >
+                          {formik.errors.passwordConfirmation}
+                          {JSON.stringify(signupPageErrors)}
+                        </div>
+                      )}
+                    </Overlay>
+                    )
+                  }
                 </Form.Group>
-                <Overlay target={target.current} show={signupPageWarningOverlay} placement="top-start">
-                  {({
-                    placement: _placement,
-                    arrowProps: _arrowProps,
-                    show: _show,
-                    popper: _popper,
-                    hasDoneInitialMeasure: _hasDoneInitialMeasure,
-                    ...props
-                  }) => (
-                    <div
-                      {...props}
-                      style={{
-                        position: 'absolute',
-                        backgroundColor: 'rgba(220, 53, 69, 0.9)',
-                        padding: '2px 10px',
-                        color: 'white',
-                        borderRadius: 2.5,
-                        ...props.style,
-                      }}
-                    >
-                      Такой пользователь уже существует
-                    </div>
-                  )}
-                </Overlay>
                 <Button
                   type="submit"
-                  ref={target}
                   variant="outline-primary"
                   className="w-100 mb-3"
                 >

@@ -9,7 +9,10 @@ const initialState = {
   showChannelModal: false,
   channelModalType: 'AddChannel',
   loginPageWarningOverlay: false,
-  signupPageWarningOverlay: false,
+  userNameOverlay: false,
+  passwordOverlay: false,
+  passwordConfirmationOverlay: false,
+  signupPageOverlay: false,
   editingChannel: null,
 };
 
@@ -48,13 +51,13 @@ const uiSlice = createSlice({
         state.loginPageWarningOverlay = true;
       })
       .addCase(signup.fulfilled, (state) => {
-        state.signupPageWarningOverlay = false;
+        state.signupPageOverlay = false;
       })
       .addCase(signup.pending, (state) => {
-        state.signupPageWarningOverlay = false;
+        state.signupPageOverlay = false;
       })
       .addCase(signup.rejected, (state) => {
-        state.signupPageWarningOverlay = true;
+        state.signupPageOverlay = true;
       })
       .addCase(postChannel.fulfilled, (state, action) => {
         state.activeChannelId = action.payload.id;
