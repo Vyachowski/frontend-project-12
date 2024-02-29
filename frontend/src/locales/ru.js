@@ -8,5 +8,10 @@ export default {
     mainPage: {
       redirectText: 'Перенаправляем на страницу входа...',
     },
+    components: {
+      header: {
+        logoutButton: 'Выйти',
+      },
+    },
   },
 };
