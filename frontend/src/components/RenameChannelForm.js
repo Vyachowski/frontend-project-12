@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -8,6 +9,7 @@ import { patchChannel } from '../store/channelsSlice';
 import { setChannelModal } from '../store/uiSlice';
 
 const RenameChannelForm = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef(null);
 
@@ -20,10 +22,10 @@ const RenameChannelForm = () => {
   const validationSchema = Yup.object({
     newChannelName: Yup
       .string()
-      .required('Обязательное поле')
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .test('is-unique', 'Имя канала должно быть уникальным', (value) => !channelNames.includes(value)),
+      .required(t('components.renameChannelForm.validationErrors.required'))
+      .min(3, t('components.renameChannelForm.validationErrors.minChar'))
+      .max(20, t('components.renameChannelForm.validationErrors.maxChar'))
+      .test('is-unique', t('components.renameChannelForm.validationErrors.uniqueName'), (value) => !channelNames.includes(value)),
   });
 
   const formik = useFormik({
@@ -51,7 +53,7 @@ const RenameChannelForm = () => {
   return (
     <Form onSubmit={formik.handleSubmit}>
       <Form.Group controlId="fromChannelName">
-        <Form.Label visuallyHidden>Переименовать канал</Form.Label>
+        <Form.Label visuallyHidden>{t('components.renameChannelForm.title')}</Form.Label>
         <Form.Control
           name="newChannelName"
           className="mb-2"
@@ -78,10 +80,10 @@ const RenameChannelForm = () => {
       </Form.Group>
       <div className="d-flex justify-content-end">
         <Button type="button" className="me-2" variant="secondary" onClick={() => dispatch(setChannelModal({ showChannelModal: false }))}>
-          Отменить
+          {t('components.renameChannelForm.cancelButton')}
         </Button>
         <Button type="submit" variant="primary">
-          Переименовать
+          {t('components.renameChannelForm.submitButton')}
         </Button>
       </div>
     </Form>

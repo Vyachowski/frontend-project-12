@@ -81,9 +81,15 @@ export default {
         submitButton: 'Подтвердить',
       },
       renameChannelForm: {
-        title: 'Уверены?',
+        title: 'Переименовать канал',
         cancelButton: 'Отменить',
-        submitButton: 'Подтвердить',
+        submitButton: 'Переименовать',
+        validationErrors: {
+          required: 'Обязательное поле',
+          minChar: 'От 3 до 20 символов',
+          maxChar: 'От 3 до 20 символов',
+          uniqueName: 'Имя канала должно быть уникальным',
+        },
       },
     },
   },
