@@ -11,9 +11,11 @@ import {
   Form,
   Overlay,
 } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 
 import { login } from '../store/authSlice';
@@ -25,6 +27,7 @@ const LoginPage = () => {
   const loginPageWarningOverlay = useSelector((state) => state.ui.loginPageWarningOverlay);
 
   const target = useRef(null);
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -53,13 +56,13 @@ const LoginPage = () => {
                 <Image src={loginImg} className="rounded-circle" alt="Welcome to the app." width={200} />
               </Col>
               <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
-                <h1 className="text-center mb-4">Войти</h1>
+                <h1 className="text-center mb-4">{t('loginPage.header')}</h1>
                 <Form.Group className="mb-3">
                   <InputGroup className="mb-4">
-                    <Form.FloatingLabel label="Имя пользователя" controlId="username">
+                    <Form.FloatingLabel label={t('loginPage.usernameFieldLabel')} controlId="username">
                       <Form.Control
                         type="text"
-                        placeholder="Имя пользователя"
+                        placeholder={t('loginPage.usernameFieldLabel')}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.username}
@@ -68,10 +71,10 @@ const LoginPage = () => {
                     </Form.FloatingLabel>
                   </InputGroup>
                   <InputGroup className="mb-4" ref={target}>
-                    <Form.FloatingLabel label="Пароль" controlId="password">
+                    <Form.FloatingLabel label={t('loginPage.passwordFieldLabel')} controlId="password">
                       <Form.Control
                         type="password"
-                        placeholder="Пароль"
+                        placeholder={t('loginPage.passwordFieldLabel')}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.password}
@@ -104,14 +107,16 @@ const LoginPage = () => {
                     )}
                   </Overlay>
                 </Form.Group>
-                <Button type="submit" variant="outline-primary" className="w-100 mb-3">Войти</Button>
+                <Button type="submit" variant="outline-primary" className="w-100 mb-3">{t('loginPage.submitButton')}</Button>
               </Form>
             </CardBody>
             <CardFooter className="p-4">
               <p className="text-center mb-0">
-                <span>Нет аккаунта? </span>
+                <span>
+                  {t('loginPage.noAccountMessage')}
+                </span>
                 <Link to="/signup">
-                  Регистрация
+                  {t('loginPage.noAccountLink')}
                 </Link>
               </p>
             </CardFooter>

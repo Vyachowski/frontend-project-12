@@ -1,12 +1,20 @@
 export default {
   translation: {
     page404: {
-      infoText: 'Страница не найдена',
-      redirectText: 'Но вы можете перейти',
-      linkRedirectText: 'на главную страницу',
+      info: 'Страница не найдена',
+      redirect: 'Но вы можете перейти',
+      linkRedirect: 'на главную страницу',
     },
     mainPage: {
-      redirectText: 'Перенаправляем на страницу входа...',
+      redirect: 'Перенаправляем на страницу входа...',
+    },
+    loginPage: {
+      header: 'Войти',
+      usernameFieldLabel: 'Имя пользователя',
+      passwordFieldLabel: 'Пароль',
+      submitButton: 'Войти',
+      noAccountMessage: 'Нет аккаунта? ',
+      noAccountLink: 'Регистрация',
     },
     components: {
       header: {

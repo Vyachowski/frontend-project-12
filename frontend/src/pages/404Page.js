@@ -10,12 +10,12 @@ const PageNotFound = () => {
     <div className="d-flex flex-column h-100">
       <Header />
       <div className="container d-flex flex-column h-100 justify-content-center align-items-center">
-        <p>{t('page404.infoText')}</p>
+        <p>{t('page404.info')}</p>
         <p>
-          {t('page404.redirectText')}
+          {t('page404.redirect')}
           {' '}
           <Link to="./">
-            {t('page404.linkRedirectText')}
+            {t('page404.linkRedirect')}
           </Link>
         </p>
       </div>

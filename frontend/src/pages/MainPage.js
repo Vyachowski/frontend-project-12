@@ -37,7 +37,7 @@ const MainPage = () => {
 
   return !isAuthenticated ? (
     <div className="d-flex justify-content-center align-items-center text-center">
-      {t('mainPage.redirectText')}
+      {t('mainPage.redirect')}
     </div>
   ) : (
     <div className="d-flex flex-column h-100">
