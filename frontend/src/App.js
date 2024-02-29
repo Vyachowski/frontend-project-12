@@ -1,5 +1,5 @@
-import { initReactI18next } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import i18n from 'i18next';
 
@@ -9,7 +9,8 @@ import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import resources from './locales/index';
 import store from './store';
-
+// eslint-disable-next-line
+import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 i18n

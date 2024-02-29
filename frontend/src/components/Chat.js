@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+import { ToastContainer, toast } from 'react-toastify';
 import { Container, Row } from 'react-bootstrap';
 
 import { useEffect } from 'react';
@@ -28,14 +30,17 @@ const Chat = () => {
 
     socket.on('newChannel', (channel) => {
       dispatch(addChannel(channel));
+      toast('Канал добавлен');
     });
 
     socket.on('removeChannel', ({ id }) => {
       dispatch(removeChannel(id));
+      toast('Канал удален');
     });
 
     socket.on('renameChannel', ({ id, name }) => {
       dispatch(renameChannel({ id, changes: { name } }));
+      toast('Канал переименован');
     });
   });
 
@@ -45,6 +50,7 @@ const Chat = () => {
         <Channels />
         <Messages />
       </Row>
+      <ToastContainer />
     </Container>
   );
 };
