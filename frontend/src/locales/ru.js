@@ -67,8 +67,13 @@ export default {
             addChannel: 'Добавить канал',
             renameChannel: 'Переименовать канал',
             removeChannel: 'Удалить канал',
-          }
-        }
+          },
+        },
+      },
+      mesagePanel: {
+        label: 'Новое сообщение',
+        placeholder: 'Введите сообщение...',
+        submitButton: 'Отправить',
       },
     },
   },
