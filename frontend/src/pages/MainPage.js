@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -8,6 +9,7 @@ import Chat from '../components/Chat.js';
 import { logout } from '../store/authSlice';
 
 const MainPage = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -33,15 +35,15 @@ const MainPage = () => {
     };
   });
 
-  return (
-    !isAuthenticated
-      ? <div className="text-center d-flex justify-content-center align-items-center">Redirect to login page...</div>
-      : (
-        <div className="d-flex flex-column h-100">
-          <Header />
-          <Chat />
-        </div>
-      )
+  return !isAuthenticated ? (
+    <div className="d-flex justify-content-center align-items-center text-center">
+      {t('mainPage.redirectText')}
+    </div>
+  ) : (
+    <div className="d-flex flex-column h-100">
+      <Header />
+      <Chat />
+    </div>
   );
 };
 

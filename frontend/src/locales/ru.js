@@ -5,5 +5,8 @@ export default {
       redirectText: 'Но вы можете перейти',
       linkRedirectText: 'на главную страницу',
     },
+    mainPage: {
+      redirectText: 'Перенаправляем на страницу входа...',
+    },
   },
 };
