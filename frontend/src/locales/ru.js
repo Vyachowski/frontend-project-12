@@ -44,6 +44,17 @@ export default {
       header: {
         logoutButton: 'Выйти',
       },
+      addChannelForm: {
+        title: 'Название канала',
+        validationsError: {
+          required: 'Обязательное поле',
+          minChar: 'От 3 до 20 символов',
+          maxChar: 'От 3 до 20 символов',
+          uniqueName: 'Имя канала должно быть уникальным',
+        },
+        cancelButton: 'Отменить',
+        submitButton: 'Отправить',
+      },
     },
   },
 };

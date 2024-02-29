@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Button, Form } from 'react-bootstrap';
 import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
@@ -8,6 +9,7 @@ import { postChannel } from '../store/channelsSlice';
 import { setChannelModal } from '../store/uiSlice';
 
 const AddChannelForm = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef(null);
 
@@ -19,10 +21,10 @@ const AddChannelForm = () => {
   const validationSchema = Yup.object({
     newChannelName: Yup
       .string()
-      .required('Обязательное поле')
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .test('is-unique', 'Имя канала должно быть уникальным', (value) => !channelNames.includes(value)),
+      .required(t('components.addChannelForm.validationErrors.required'))
+      .min(3, t('components.addChannelForm.validationErrors.minChars'))
+      .max(20, t('components.addChannelForm.validationErrors.maxChars'))
+      .test('is-unique', t('components.addChannelForm.validationErrors.uniqueName'), (value) => !channelNames.includes(value)),
   });
 
   const formik = useFormik({
@@ -50,7 +52,7 @@ const AddChannelForm = () => {
   return (
     <Form onSubmit={formik.handleSubmit}>
       <Form.Group controlId="fromChannelName">
-        <Form.Label visuallyHidden>Название канала</Form.Label>
+        <Form.Label visuallyHidden>{t('components.addChannelForm.title')}</Form.Label>
         <Form.Control
           name="newChannelName"
           className="mb-2"
@@ -71,10 +73,10 @@ const AddChannelForm = () => {
       </Form.Group>
       <div className="d-flex justify-content-end">
         <Button type="button" className="me-2" variant="secondary" onClick={() => dispatch(setChannelModal({ showChannelModal: false }))}>
-          Отменить
+          {t('components.addChannelForm.cancelButton')}
         </Button>
         <Button type="submit" variant="primary">
-          Отправить
+          {t('components.addChannelForm.submitButton')}
         </Button>
       </div>
     </Form>
