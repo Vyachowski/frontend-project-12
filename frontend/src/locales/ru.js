@@ -70,6 +70,11 @@ export default {
           },
         },
       },
+      messages: {
+        counter_one: '{{count}} сообщение',
+        counter_few: '{{count}} сообщения',
+        counter_many: '{{count}} сообщений',
+      },
       messagePanel: {
         label: 'Новое сообщение',
         placeholder: 'Введите сообщение...',

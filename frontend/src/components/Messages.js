@@ -1,11 +1,15 @@
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
 
 import MessagePanel from './MessagePanel';
 
 const Messages = () => {
+  const { t } = useTranslation();
+
   const channels = useSelector((state) => Object.values(state.channels.entities));
   const messages = useSelector((state) => Object.values(state.messages.entities));
+  const messagesCounter = messages.length;
 
   const activeChannelId = useSelector((state) => state.ui.activeChannelId);
   const activeChannel = channels.find((channel) => channel.id === activeChannelId);
@@ -20,7 +24,9 @@ const Messages = () => {
               {activeChannel?.name}
             </b>
           </p>
-          <span className="text-muted">0 сообщений</span>
+          <span className="text-muted">
+            {t('components.messages.counter', { count: messagesCounter })}
+          </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {messages
