@@ -55,6 +55,21 @@ export default {
         cancelButton: 'Отменить',
         submitButton: 'Отправить',
       },
+      channels: {
+        title: 'Каналы',
+        addButton: 'Добавить канал',
+        dropdown: {
+          renameButton: 'Переименовать',
+          removeButton: 'Удалить',
+        },
+        modal: {
+          titles: {
+            addChannel: 'Добавить канал',
+            renameChannel: 'Переименовать канал',
+            removeChannel: 'Удалить канал',
+          }
+        }
+      },
     },
   },
 };

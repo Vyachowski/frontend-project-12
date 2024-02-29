@@ -2,6 +2,7 @@ import {
   Button, ButtonGroup, Col, Dropdown, ListGroup, ListGroupItem,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import {
   setActiveChannel, setChannelModal, setChannelModalType, setEditingChannel,
@@ -13,6 +14,7 @@ import AddChannelForm from './AddChannelForm';
 import ModalWindow from './ModalWindow';
 
 const Channels = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const channels = useSelector((state) => Object.values(state.channels.entities));
@@ -23,11 +25,11 @@ const Channels = () => {
   const getModalTitle = (() => {
     switch (channelModalType) {
       case 'RemoveChannel':
-        return 'Удалить канал';
+        return t('components.channels.modal.titles.removeChannel');
       case 'RenameChannel':
-        return 'Переименовать канал';
+        return t('components.channels.modal.titles.renameChannel');
       case 'AddChannel':
-        return 'Добавить канал';
+        return t('components.channels.modal.titles.addChannel');
       default:
         return '';
     }
@@ -56,7 +58,7 @@ const Channels = () => {
   return (
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <b>Каналы</b>
+        <b>{t('components.channels.title')}</b>
         <Button type="button" variant="link" className="p-0 lh-1" onClick={() => handleAddChannel()}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
             <path
@@ -66,7 +68,7 @@ const Channels = () => {
               d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
             />
           </svg>
-          <span className="visually-hidden">+</span>
+          <span className="visually-hidden">{t('components.channels.addButton')}</span>
         </Button>
       </div>
       <ListGroup id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block" defaultActiveKey="#link1" as="ul">
@@ -96,13 +98,13 @@ const Channels = () => {
                       href="#"
                       onClick={() => handleRemoveChannel(channel)}
                     >
-                      Удалить
+                      {t('components.channels.dropdown.removeButton')}
                     </Dropdown.Item>
                     <Dropdown.Item
                       href="#"
                       onClick={() => handleRenameChannel(channel)}
                     >
-                      Переименовать
+                      {t('components.channels.dropdown.renameButton')}
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
