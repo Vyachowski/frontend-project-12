@@ -70,10 +70,20 @@ export default {
           },
         },
       },
-      mesagePanel: {
+      messagePanel: {
         label: 'Новое сообщение',
         placeholder: 'Введите сообщение...',
         submitButton: 'Отправить',
+      },
+      removeChannelForm: {
+        title: 'Уверены?',
+        cancelButton: 'Отменить',
+        submitButton: 'Подтвердить',
+      },
+      renameChannelForm: {
+        title: 'Уверены?',
+        cancelButton: 'Отменить',
+        submitButton: 'Подтвердить',
       },
     },
   },
