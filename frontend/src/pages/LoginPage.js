@@ -102,12 +102,14 @@ const LoginPage = () => {
                           ...props.style,
                         }}
                       >
-                        Неверные имя пользователя или пароль
+                        {t('loginPage.overlay')}
                       </div>
                     )}
                   </Overlay>
                 </Form.Group>
-                <Button type="submit" variant="outline-primary" className="w-100 mb-3">{t('loginPage.submitButton')}</Button>
+                <Button type="submit" variant="outline-primary" className="w-100 mb-3">
+                  {t('loginPage.submitButton')}
+                </Button>
               </Form>
             </CardBody>
             <CardFooter className="p-4">

@@ -15,6 +15,7 @@ export default {
       submitButton: 'Войти',
       noAccountMessage: 'Нет аккаунта? ',
       noAccountLink: 'Регистрация',
+      overlay: 'Неверные имя пользователя или пароль',
     },
     components: {
       header: {
