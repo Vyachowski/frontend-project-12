@@ -56,7 +56,7 @@ const LoginPage = () => {
                 <Image src={loginImg} className="rounded-circle" alt="Welcome to the app." width={200} />
               </Col>
               <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
-                <h1 className="text-center mb-4">{t('loginPage.header')}</h1>
+                <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
                 <Form.Group className="mb-3">
                   <InputGroup className="mb-4">
                     <Form.FloatingLabel label={t('loginPage.usernameFieldLabel')} controlId="username">

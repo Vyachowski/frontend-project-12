@@ -9,13 +9,36 @@ export default {
       redirect: 'Перенаправляем на страницу входа...',
     },
     loginPage: {
-      header: 'Войти',
+      title: 'Войти',
       usernameFieldLabel: 'Имя пользователя',
       passwordFieldLabel: 'Пароль',
       submitButton: 'Войти',
       noAccountMessage: 'Нет аккаунта? ',
       noAccountLink: 'Регистрация',
       overlay: 'Неверные имя пользователя или пароль',
+    },
+    signupPage: {
+      title: 'Регистрация',
+      validationErrors: {
+        common: {
+          required: 'Обязательное поле',
+        },
+        username: {
+          minChar: 'От 3 до 20 символов',
+          maxChar: 'От 3 до 20 символов',
+        },
+        password: {
+          minChar: 'От 6 символов',
+        },
+        passwordConfirmation: {
+          equalToPassword: 'Пароли должны совпадать',
+        },
+      },
+      labels: {
+        usernameFieldLabel: 'Имя пользователя',
+        passwordFieldLabel: 'Пароль',
+        passwordConfirmationFieldLabel: 'Подтверждение пароля',
+      },
     },
     components: {
       header: {

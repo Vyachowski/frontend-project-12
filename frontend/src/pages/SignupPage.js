@@ -13,6 +13,7 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -31,21 +32,22 @@ const SignupPage = () => {
   const passwordConfirmationOverlay = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const validationSchema = Yup.object({
     username: Yup
       .string()
-      .required('Обязательное поле')
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов'),
+      .required(t('signupPage.validationErrors.common.required'))
+      .min(3, t('signupPage.validationErrors.username.minChar'))
+      .max(20, t('signupPage.validationErrors.username.maxChar')),
     password: Yup
       .string()
-      .required('Обязательное поле')
-      .min(6, 'Не менее 6 символов'),
+      .required(t('signupPage.validationErrors.common.required'))
+      .min(6, t('signupPage.validationErrors.password.minChar')),
     passwordConfirmation: Yup
       .string()
-      .required('Обязательное поле')
-      .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
+      .required(t('signupPage.validationErrors.common.required'))
+      .oneOf([Yup.ref('password'), null], t('signupPage.validationErrors.passwordConfirmation.equalToPassword')),
   });
 
   const formik = useFormik({
@@ -77,13 +79,13 @@ const SignupPage = () => {
                 <Image src={signupImg} className="rounded-circle" alt="Welcome to the app." width={200} />
               </Col>
               <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
-                <h1 className="text-center mb-4">Войти</h1>
+                <h1 className="text-center mb-4">{t('signupPage.title')}</h1>
                 <Form.Group className="mb-3">
                   <InputGroup className="mb-4" ref={usernameOverlay}>
-                    <Form.FloatingLabel label="Имя пользователя" controlId="username">
+                    <Form.FloatingLabel label={t('signupPage.labels.usernameFieldLabel')} controlId="username">
                       <Form.Control
                         type="text"
-                        placeholder="Имя пользователя"
+                        placeholder={t('signupPage.labels.usernameFieldLabel')}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.username}
@@ -121,10 +123,10 @@ const SignupPage = () => {
                     )
                   }
                   <InputGroup className="mb-4" ref={passwordOverlay}>
-                    <Form.FloatingLabel label="Пароль" controlId="password">
+                    <Form.FloatingLabel label={t('signupPage.labels.passwordFieldLabel')} controlId="password">
                       <Form.Control
                         type="password"
-                        placeholder="Пароль"
+                        placeholder={t('signupPage.labels.passwordFieldLabel')}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.password}
@@ -162,10 +164,10 @@ const SignupPage = () => {
                     )
                   }
                   <InputGroup className="mb-4" ref={passwordConfirmationOverlay}>
-                    <Form.FloatingLabel label="Подтверждение пароля" controlId="passwordConfirmation">
+                    <Form.FloatingLabel label={t('signupPage.labels.passwordConfirmationFieldLabel')} controlId="passwordConfirmation">
                       <Form.Control
                         type="password"
-                        placeholder="Подтвердите пароль"
+                        placeholder={t('signupPage.labels.passwordConfirmationFieldLabel')}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.passwordConfirmation}
