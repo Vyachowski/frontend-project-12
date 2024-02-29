@@ -37,9 +37,10 @@ const Messages = () => {
             .filter((message) => message.channelId === activeChannelId)
             .map((message) => (
               <p className="text-break mb-2" key={message.id}>
-                <strong>{message.username}</strong>
-                :
-                {' '}
+                <strong>
+                  {message.username}
+                  {': '}
+                </strong>
                 {message.body}
               </p>
             ))}
