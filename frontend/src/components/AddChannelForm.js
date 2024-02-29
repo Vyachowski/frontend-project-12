@@ -10,8 +10,10 @@ import { setChannelModal } from '../store/uiSlice';
 const AddChannelForm = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const showChannelModal = useSelector((state) => state.ui.showChannelModal);
+
   const channels = useSelector((state) => Object.values(state.channels.entities));
+  const showChannelModal = useSelector((state) => state.ui.showChannelModal);
+
   const channelNames = channels.map((channel) => channel.name);
 
   const validationSchema = Yup.object({
