@@ -94,7 +94,7 @@ export default {
         cancelButton: 'Отменить',
         submitButton: 'Подтвердить',
         request: {
-          success: 'Канал удален',
+          success: 'Канал удалён',
           networkError: 'Ошибка соединения',
         },
       },
