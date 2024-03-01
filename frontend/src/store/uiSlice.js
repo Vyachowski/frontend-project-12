@@ -12,7 +12,7 @@ const initialState = {
   userNameOverlay: false,
   passwordOverlay: false,
   passwordConfirmationOverlay: false,
-  signupPageOverlay: false,
+  showSignupPageOverlay: false,
   editingChannel: null,
 };
 
@@ -35,6 +35,9 @@ const uiSlice = createSlice({
     setEditingChannel: (state, action) => {
       state.editingChannel = action.payload.editingChannel;
     },
+    setShowSignupPageOverlay: (state, action) => {
+      state.showSignupPageOverlay = action.payload.showSignupPageOverlay;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,13 +54,13 @@ const uiSlice = createSlice({
         state.loginPageWarningOverlay = true;
       })
       .addCase(signup.fulfilled, (state) => {
-        state.signupPageOverlay = false;
+        state.showSignupPageOverlay = false;
       })
       .addCase(signup.pending, (state) => {
-        state.signupPageOverlay = false;
+        state.showSignupPageOverlay = false;
       })
       .addCase(signup.rejected, (state) => {
-        state.signupPageOverlay = true;
+        state.showSignupPageOverlay = true;
       })
       .addCase(postChannel.fulfilled, (state, action) => {
         state.activeChannelId = action.payload.id;
@@ -66,6 +69,11 @@ const uiSlice = createSlice({
 });
 
 export const {
-  setActiveChannel, setMessageText, setChannelModal, setEditingChannel, setChannelModalType,
+  setActiveChannel,
+  setMessageText,
+  setChannelModal,
+  setEditingChannel,
+  setChannelModalType,
+  setShowSignupPageOverlay,
 } = uiSlice.actions;
 export default uiSlice.reducer;

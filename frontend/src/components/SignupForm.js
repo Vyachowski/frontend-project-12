@@ -1,15 +1,20 @@
 import {
   Button, Form, InputGroup, Overlay,
 } from 'react-bootstrap';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { useRef } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
 import { useTranslation } from 'react-i18next';
+import { useRef } from 'react';
+
+import { setShowSignupPageOverlay } from '../store/uiSlice';
 import { signup } from '../store/authSlice';
+import FieldOverlay from './FieldOverlay';
 
 const SignupForm = () => {
-  const signupPageOverlay = useSelector((state) => state.ui.signupPageOverlay);
+  const showSignupPageOverlay = useSelector((state) => state.ui.showSignupPageOverlay);
   const signupPageErrors = useSelector((state) => state.app.signupPageErrors);
 
   const usernameOverlay = useRef(null);
@@ -50,6 +55,11 @@ const SignupForm = () => {
     },
   });
 
+  const handleUsername = (e) => {
+    formik.handleChange(e);
+    dispatch(setShowSignupPageOverlay({ showSignupPageOverlay: false }));
+  };
+
   return (
     <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
       <h1 className="text-center mb-4">{t('signupPage.title')}</h1>
@@ -59,7 +69,7 @@ const SignupForm = () => {
             <Form.Control
               type="text"
               placeholder={t('signupPage.labels.usernameFieldLabel')}
-              onChange={formik.handleChange}
+              onChange={handleUsername}
               onBlur={formik.handleBlur}
               value={formik.values.username}
               isInvalid={formik.touched.username && formik.errors.username}
@@ -152,33 +162,17 @@ const SignupForm = () => {
           </Form.FloatingLabel>
         </InputGroup>
         {
-          (formik.errors.passwordConfirmation || signupPageOverlay)
+          (formik.errors.passwordConfirmation || showSignupPageOverlay)
           && (
-            <Overlay target={passwordConfirmationOverlay.current} show placement="bottom-start">
-              {({
-                placement: _placement,
-                arrowProps: _arrowProps,
-                show: _show,
-                popper: _popper,
-                hasDoneInitialMeasure: _hasDoneInitialMeasure,
-                ...props
-              }) => (
-                <div
-                  {...props}
-                  style={{
-                    position: 'absolute',
-                    backgroundColor: 'rgba(220, 53, 69, 0.9)',
-                    padding: '2px 10px',
-                    color: 'white',
-                    borderRadius: 2.5,
-                    ...props.style,
-                  }}
-                >
-                  {formik.errors.passwordConfirmation}
-                  {t(`signupPage.submitErrors.${signupPageErrors.statusCode}`)}
-                </div>
-              )}
-            </Overlay>
+            <FieldOverlay
+              target={passwordConfirmationOverlay}
+              formikError={formik.errors.passwordConfirmation}
+              submitErrorText={
+                showSignupPageOverlay
+                  ? t(`signupPage.submitErrors.${signupPageErrors.statusCode}`)
+                  : null
+              }
+            />
           )
         }
       </Form.Group>
