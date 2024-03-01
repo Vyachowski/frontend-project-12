@@ -1,7 +1,6 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { generateUniqueID } from "web-vitals/src/lib/generateUniqueID";
 import { toast } from 'react-toastify';
 
 import { getAuthConfig, getChannelsUrl } from '../utils/routes';
@@ -81,7 +80,7 @@ const channelsSlice = createSlice({
         state.error = null;
 
         toast.success('Канал добавлен', {
-          toastId: generateUniqueID(),
+          toastId: 1,
         });
       })
       .addCase(postChannel.rejected, (state, action) => {
