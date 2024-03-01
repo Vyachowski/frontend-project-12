@@ -15,7 +15,7 @@ const LoginPage = () => {
   }, [isAuthenticated, navigate]);
 
   return (
-    <AuthCard image={loginImg}>
+    <AuthCard image={loginImg} hasFooter>
       <LoginForm />
     </AuthCard>
   );

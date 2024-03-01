@@ -10,7 +10,7 @@ import {
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-const AuthCard = ({ image, children }) => {
+const AuthCard = ({ image, children, hasFooter }) => {
   const { t } = useTranslation();
 
   return (
@@ -24,16 +24,18 @@ const AuthCard = ({ image, children }) => {
               </Col>
               {children}
             </CardBody>
-            <CardFooter className="p-4">
-              <p className="text-center mb-0">
-                <span>
-                  {t('loginPage.noAccountMessage')}
-                </span>
-                <Link to="/signup">
-                  {t('loginPage.noAccountLink')}
-                </Link>
-              </p>
-            </CardFooter>
+            {hasFooter && (
+              <CardFooter className="p-4">
+                <p className="text-center mb-0">
+                  <span>
+                    {t('loginPage.noAccountMessage')}
+                  </span>
+                  <Link to="/signup">
+                    {t('loginPage.noAccountLink')}
+                  </Link>
+                </p>
+              </CardFooter>
+            )}
           </Card>
         </Col>
       </Row>
