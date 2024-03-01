@@ -8,9 +8,8 @@ import AuthCard from '../components/AuthCard';
 import SignupForm from '../components/SignupForm';
 
 const SignupPage = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
   const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     if (isAuthenticated) navigate('/');
