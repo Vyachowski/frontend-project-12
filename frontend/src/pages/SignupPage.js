@@ -202,7 +202,7 @@ const SignupPage = () => {
                           }}
                         >
                           {formik.errors.passwordConfirmation}
-                          {JSON.stringify(signupPageErrors)}
+                          {t(`signupPage.submitErrors.${signupPageErrors.statusCode}`)}
                         </div>
                       )}
                     </Overlay>
@@ -214,7 +214,7 @@ const SignupPage = () => {
                   variant="outline-primary"
                   className="w-100 mb-3"
                 >
-                  Зарегистрироваться
+                  {t('signupPage.submitButton')}
                 </Button>
               </Form>
             </CardBody>

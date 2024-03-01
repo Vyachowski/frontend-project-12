@@ -10,7 +10,7 @@ export default {
     },
     loginPage: {
       title: 'Войти',
-      usernameFieldLabel: 'Имя пользователя',
+      usernameFieldLabel: 'Ваш ник',
       passwordFieldLabel: 'Пароль',
       submitButton: 'Войти',
       noAccountMessage: 'Нет аккаунта? ',
@@ -34,11 +34,15 @@ export default {
           equalToPassword: 'Пароли должны совпадать',
         },
       },
+      submitErrors: {
+        409: 'Такой пользователь уже существует',
+      },
       labels: {
-        usernameFieldLabel: 'Имя пользователя',
+        usernameFieldLabel: 'Ваш ник',
         passwordFieldLabel: 'Пароль',
         passwordConfirmationFieldLabel: 'Подтверждение пароля',
       },
+      submitButton: 'Зарегистрироваться',
     },
     components: {
       header: {
