@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { toast } from 'react-toastify';
 import { getAuthConfig, getChannelsUrl } from '../utils/routes';
+import {generateUniqueID} from "web-vitals/src/lib/generateUniqueID";
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',
@@ -78,7 +79,9 @@ const channelsSlice = createSlice({
         state.loadingStatus = 'idle';
         state.error = null;
 
-        toast.success('Канал добавлен');
+        toast.success('Канал добавлен', {
+          toastId: generateUniqueID(),
+        });
       })
       .addCase(postChannel.rejected, (state, action) => {
         state.loadingStatus = 'failed';
