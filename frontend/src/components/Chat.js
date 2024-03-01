@@ -2,14 +2,16 @@
 import { ToastContainer, toast } from 'react-toastify';
 import { Container, Row } from 'react-bootstrap';
 
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+
 import { io } from 'socket.io-client';
-import { useDispatch } from 'react-redux';
 
 import {
   addChannel, fetchChannels, removeChannel, renameChannel,
 } from '../store/channelsSlice';
 import { addMessage, fetchMessages } from '../store/messagesSlice';
+import { setActiveChannel } from '../store/uiSlice';
 import Channels from './Channels';
 import Messages from './Messages';
 
@@ -17,6 +19,7 @@ const socket = io();
 
 const Chat = () => {
   const dispatch = useDispatch();
+  const activeChannelId = useSelector((state) => state.ui.activeChannelId);
 
   useEffect(() => {
     dispatch(fetchChannels());
@@ -35,6 +38,9 @@ const Chat = () => {
 
     socket.on('removeChannel', ({ id }) => {
       dispatch(removeChannel(id));
+      if (id === activeChannelId) {
+        dispatch(setActiveChannel({ activeChannelId: '1' }));
+      }
       toast('Канал удален');
     });
 
