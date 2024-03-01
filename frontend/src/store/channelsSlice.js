@@ -86,6 +86,10 @@ const channelsSlice = createSlice({
       .addCase(postChannel.rejected, (state, action) => {
         state.loadingStatus = 'failed';
         state.error = action.error;
+
+        toast.error('Ошибочка котик сорян', {
+          toastId: 2,
+        });
       });
   },
 });
