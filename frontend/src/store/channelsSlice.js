@@ -1,7 +1,8 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-
 import { toast } from 'react-toastify';
+import i18n from 'i18next';
+
+import axios from 'axios';
 
 import { getAuthConfig, getChannelsUrl } from '../utils/routes';
 
@@ -79,7 +80,7 @@ const channelsSlice = createSlice({
         state.loadingStatus = 'idle';
         state.error = null;
 
-        toast.success('Канал добавлен', {
+        toast.success(i18n.t('components.addChannelForm.request.success'), {
           toastId: 1,
         });
       })

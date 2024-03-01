@@ -44,17 +44,6 @@ export default {
       header: {
         logoutButton: 'Выйти',
       },
-      addChannelForm: {
-        title: 'Название канала',
-        validationsError: {
-          required: 'Обязательное поле',
-          minChar: 'От 3 до 20 символов',
-          maxChar: 'От 3 до 20 символов',
-          uniqueName: 'Имя канала должно быть уникальным',
-        },
-        cancelButton: 'Отменить',
-        submitButton: 'Отправить',
-      },
       channels: {
         title: 'Каналы',
         addButton: 'Добавить канал',
@@ -79,6 +68,20 @@ export default {
         label: 'Новое сообщение',
         placeholder: 'Введите сообщение...',
         submitButton: 'Отправить',
+      },
+      addChannelForm: {
+        title: 'Название канала',
+        validationsError: {
+          required: 'Обязательное поле',
+          minChar: 'От 3 до 20 символов',
+          maxChar: 'От 3 до 20 символов',
+          uniqueName: 'Имя канала должно быть уникальным',
+        },
+        cancelButton: 'Отменить',
+        submitButton: 'Отправить',
+        request: {
+          success: 'Канал создан',
+        },
       },
       removeChannelForm: {
         title: 'Уверены?',
