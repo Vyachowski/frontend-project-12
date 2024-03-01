@@ -1,5 +1,5 @@
 import {
-  Button, Form, InputGroup, Overlay,
+  Button, Form, InputGroup,
 } from 'react-bootstrap';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -79,30 +79,10 @@ const SignupForm = () => {
         {
           formik.errors.username
           && (
-            <Overlay target={usernameOverlay.current} show placement="bottom-start">
-              {({
-                placement: _placement,
-                arrowProps: _arrowProps,
-                show: _show,
-                popper: _popper,
-                hasDoneInitialMeasure: _hasDoneInitialMeasure,
-                ...props
-              }) => (
-                <div
-                  {...props}
-                  style={{
-                    position: 'absolute',
-                    backgroundColor: 'rgba(220, 53, 69, 0.9)',
-                    padding: '2px 10px',
-                    color: 'white',
-                    borderRadius: 2.5,
-                    ...props.style,
-                  }}
-                >
-                  {formik.errors.username}
-                </div>
-              )}
-            </Overlay>
+            <FieldOverlay
+              target={usernameOverlay}
+              formikError={formik.errors.username}
+            />
           )
         }
         <InputGroup className="mb-4" ref={passwordOverlay}>
@@ -120,30 +100,10 @@ const SignupForm = () => {
         {
           formik.errors.password
           && (
-            <Overlay target={passwordOverlay.current} show placement="bottom-start">
-              {({
-                placement: _placement,
-                arrowProps: _arrowProps,
-                show: _show,
-                popper: _popper,
-                hasDoneInitialMeasure: _hasDoneInitialMeasure,
-                ...props
-              }) => (
-                <div
-                  {...props}
-                  style={{
-                    position: 'absolute',
-                    backgroundColor: 'rgba(220, 53, 69, 0.9)',
-                    padding: '2px 10px',
-                    color: 'white',
-                    borderRadius: 2.5,
-                    ...props.style,
-                  }}
-                >
-                  {formik.errors.password}
-                </div>
-              )}
-            </Overlay>
+            <FieldOverlay
+              target={passwordOverlay}
+              formikError={formik.errors.password}
+            />
           )
         }
         <InputGroup className="mb-4" ref={passwordConfirmationOverlay}>
