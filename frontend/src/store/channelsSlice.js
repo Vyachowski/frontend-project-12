@@ -88,8 +88,40 @@ const channelsSlice = createSlice({
         state.loadingStatus = 'failed';
         state.error = action.error;
 
-        toast.error('Ошибочка котик сорян', {
+        toast.error(i18n.t('components.addChannelForm.request.networkError'), {
           toastId: 2,
+        });
+      })
+      .addCase(patchChannel.fulfilled, (state) => {
+        state.loadingStatus = 'idle';
+        state.error = null;
+
+        toast.success(i18n.t('components.renameChannelForm.request.success'), {
+          toastId: 3,
+        });
+      })
+      .addCase(patchChannel.rejected, (state, action) => {
+        state.loadingStatus = 'failed';
+        state.error = action.error;
+
+        toast.error(i18n.t('components.renameChannelForm.request.networkError'), {
+          toastId: 4,
+        });
+      })
+      .addCase(deleteChannel.fulfilled, (state) => {
+        state.loadingStatus = 'idle';
+        state.error = null;
+
+        toast.success(i18n.t('components.removeChannelForm.request.success'), {
+          toastId: 5,
+        });
+      })
+      .addCase(deleteChannel.rejected, (state, action) => {
+        state.loadingStatus = 'failed';
+        state.error = action.error;
+
+        toast.error(i18n.t('components.removeChannelForm.request.networkError'), {
+          toastId: 6,
         });
       });
   },
