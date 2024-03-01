@@ -7,8 +7,8 @@ import AuthCard from '../components/AuthCard';
 import loginImg from '../assets/login.png';
 
 const LoginPage = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     if (isAuthenticated) navigate('/');
