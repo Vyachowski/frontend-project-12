@@ -91,7 +91,11 @@ const Channels = () => {
                     split
                     variant={channel.id === activeChannelId ? 'secondary' : ''}
                     id={`dropdown-split-basic-${channel.id}`}
-                  />
+                  >
+                    <span className="visually-hidden">
+                      {t('components.channels.dropdown.title')}
+                    </span>
+                  </Dropdown.Toggle>
 
                   <Dropdown.Menu>
                     <Dropdown.Item

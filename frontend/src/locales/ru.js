@@ -50,8 +50,9 @@ export default {
       },
       channels: {
         title: 'Каналы',
-        addButton: 'Добавить канал',
+        addButton: '+',
         dropdown: {
+          title: 'Управление каналом',
           renameButton: 'Переименовать',
           removeButton: 'Удалить',
         },
@@ -85,7 +86,7 @@ export default {
         submitButton: 'Отправить',
         request: {
           success: 'Канал создан',
-          networkError: 'Упс, проблемы с сетью',
+          networkError: 'Ошибка соединения',
         },
       },
       removeChannelForm: {
@@ -94,7 +95,7 @@ export default {
         submitButton: 'Подтвердить',
         request: {
           success: 'Канал удален',
-          networkError: 'Упс, проблемы с сетью',
+          networkError: 'Ошибка соединения',
         },
       },
       renameChannelForm: {
@@ -109,7 +110,7 @@ export default {
         },
         request: {
           success: 'Канал переименован',
-          networkError: 'Упс, проблемы с сетью',
+          networkError: 'Ошибка соединения',
         },
       },
     },
