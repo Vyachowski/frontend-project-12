@@ -81,12 +81,17 @@ export default {
         submitButton: 'Отправить',
         request: {
           success: 'Канал создан',
+          networkError: 'Упс, проблемы с сетью',
         },
       },
       removeChannelForm: {
         title: 'Уверены?',
         cancelButton: 'Отменить',
         submitButton: 'Подтвердить',
+        request: {
+          success: 'Канал удален',
+          networkError: 'Упс, проблемы с сетью',
+        },
       },
       renameChannelForm: {
         title: 'Переименовать канал',
@@ -97,6 +102,10 @@ export default {
           minChar: 'От 3 до 20 символов',
           maxChar: 'От 3 до 20 символов',
           uniqueName: 'Имя канала должно быть уникальным',
+        },
+        request: {
+          success: 'Канал переименован',
+          networkError: 'Упс, проблемы с сетью',
         },
       },
     },
