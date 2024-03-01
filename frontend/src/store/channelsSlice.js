@@ -1,6 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { toast } from 'react-toastify';
 import { getAuthConfig, getChannelsUrl } from '../utils/routes';
 
 export const fetchChannels = createAsyncThunk(
@@ -76,6 +77,8 @@ const channelsSlice = createSlice({
       .addCase(postChannel.fulfilled, (state) => {
         state.loadingStatus = 'idle';
         state.error = null;
+
+        toast('Канал добавлен');
       })
       .addCase(postChannel.rejected, (state, action) => {
         state.loadingStatus = 'failed';

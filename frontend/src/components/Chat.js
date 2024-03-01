@@ -1,5 +1,5 @@
-import { ToastContainer, toast } from 'react-toastify';
 import { Container, Row } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -32,7 +32,6 @@ const Chat = () => {
 
     socket.on('newChannel', (channel) => {
       dispatch(addChannel(channel));
-      toast('Канал добавлен');
     });
 
     socket.on('removeChannel', ({ id }) => {
@@ -40,12 +39,10 @@ const Chat = () => {
       if (id === activeChannelId) {
         dispatch(setActiveChannel({ activeChannelId: '1' }));
       }
-      toast('Канал удален');
     });
 
     socket.on('renameChannel', ({ id, name }) => {
       dispatch(renameChannel({ id, changes: { name } }));
-      toast('Канал переименован');
     });
   });
 
