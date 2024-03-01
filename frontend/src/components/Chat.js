@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import { ToastContainer, toast } from 'react-toastify';
 import { Container, Row } from 'react-bootstrap';
 
