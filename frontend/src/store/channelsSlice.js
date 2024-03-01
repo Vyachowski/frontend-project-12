@@ -1,9 +1,10 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { generateUniqueID } from "web-vitals/src/lib/generateUniqueID";
 import { toast } from 'react-toastify';
+
 import { getAuthConfig, getChannelsUrl } from '../utils/routes';
-import {generateUniqueID} from "web-vitals/src/lib/generateUniqueID";
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',
