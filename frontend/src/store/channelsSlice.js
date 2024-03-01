@@ -78,7 +78,7 @@ const channelsSlice = createSlice({
         state.loadingStatus = 'idle';
         state.error = null;
 
-        toast('Канал добавлен');
+        toast.success('Канал добавлен');
       })
       .addCase(postChannel.rejected, (state, action) => {
         state.loadingStatus = 'failed';
