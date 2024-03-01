@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { postMessage } from '../store/messagesSlice';
 import { setMessageText } from '../store/uiSlice';
+import { filter } from '../locales';
 
 const MessagePanel = () => {
   const { t } = useTranslation();
@@ -14,7 +15,8 @@ const MessagePanel = () => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    const newMessage = { body: messageText, channelId: activeChannelId, username };
+    const filteredMessageText = filter.clean(messageText);
+    const newMessage = { body: filteredMessageText, channelId: activeChannelId, username };
     dispatch(postMessage(newMessage));
   };
 
