@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 
 import { postChannel } from '../store/channelsSlice';
 import { setChannelModal } from '../store/uiSlice';
+import { filter } from '../locales';
 
 const AddChannelForm = () => {
   const { t } = useTranslation();
@@ -36,7 +37,8 @@ const AddChannelForm = () => {
     validationSchema,
     onSubmit: (values) => {
       const { newChannelName } = values;
-      dispatch(postChannel(newChannelName));
+      const filteredChannelName = filter.clean(newChannelName);
+      dispatch(postChannel(filteredChannelName));
       dispatch(setChannelModal({ showChannelModal: false }));
     },
   });
