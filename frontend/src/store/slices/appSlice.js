@@ -9,11 +9,6 @@ const initialState = {
 const appSlice = createSlice({
   name: 'app',
   initialState,
-  reducers: {
-    setError: (state, action) => {
-      state.activeChannelId = action.payload.activeChannelId;
-    },
-  },
   extraReducers: (builder) => {
     builder
       .addCase(login.rejected, (state, { error }) => {
@@ -29,7 +24,4 @@ const appSlice = createSlice({
   },
 });
 
-export const {
-  setError,
-} = appSlice.actions;
 export default appSlice.reducer;
