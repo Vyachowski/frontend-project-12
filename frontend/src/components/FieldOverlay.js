@@ -1,6 +1,6 @@
 import { Overlay } from 'react-bootstrap';
 
-const FieldOverlay = ({ target, formikError, submitErrorText = null }) => (
+const FieldOverlay = ({ target, formikError = null, submitErrorText = null }) => (
   <Overlay target={target.current} show placement="bottom-start">
     {({
       placement: _placement,
