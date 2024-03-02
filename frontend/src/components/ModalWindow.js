@@ -4,7 +4,7 @@ import { Modal } from 'react-bootstrap';
 import { setShowModalWindow } from '../store/slices/uiSlice';
 
 const ModalWindow = ({ children, title }) => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const showModalWindow = useSelector((state) => state.ui.modal.showModalWindow);
 
   const handleClose = () => {
