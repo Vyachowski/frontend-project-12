@@ -33,12 +33,12 @@ const LoginForm = () => {
       <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
       <Form.Group className="mb-3">
         <FormField
-          labelText={t('loginPage.usernameFieldLabel')}
+          labelText={t('loginPage.labels.usernameField')}
           formHandler={formik}
           fieldName="username"
         />
         <FormField
-          labelText={t('loginPage.passwordFieldLabel')}
+          labelText={t('loginPage.labels.passwordField')}
           formHandler={formik}
           fieldName="password"
           type="password"

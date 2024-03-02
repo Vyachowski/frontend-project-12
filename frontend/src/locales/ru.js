@@ -10,15 +10,23 @@ export default {
     },
     loginPage: {
       title: 'Войти',
-      usernameFieldLabel: 'Ваш ник',
-      passwordFieldLabel: 'Пароль',
       submitButton: 'Войти',
+      labels: {
+        usernameFieldLabel: 'Ваш ник',
+        passwordFieldLabel: 'Пароль',
+      },
       noAccountMessage: 'Нет аккаунта? ',
       noAccountLink: 'Регистрация',
       overlay: 'Неверные имя пользователя или пароль',
     },
     signupPage: {
       title: 'Регистрация',
+      submitButton: 'Зарегистрироваться',
+      labels: {
+        usernameField: 'Ваш ник',
+        passwordField: 'Пароль',
+        passwordConfirmationField: 'Подтверждение пароля',
+      },
       validationErrors: {
         common: {
           required: 'Обязательное поле',
@@ -37,12 +45,6 @@ export default {
       submitErrors: {
         409: 'Такой пользователь уже существует',
       },
-      labels: {
-        usernameField: 'Ваш ник',
-        passwordField: 'Пароль',
-        passwordConfirmationField: 'Подтверждение пароля',
-      },
-      submitButton: 'Зарегистрироваться',
     },
     components: {
       header: {
