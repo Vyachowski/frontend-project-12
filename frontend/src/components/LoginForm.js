@@ -35,14 +35,12 @@ const LoginForm = () => {
           labelText={t('loginPage.usernameFieldLabel')}
           formik={formik}
           fieldName="username"
-          placeholderText={t('loginPage.usernameFieldLabel')}
         />
         <FormField
           labelText={t('loginPage.passwordFieldLabel')}
           formik={formik}
           fieldName="password"
           type="password"
-          placeholderText={t('loginPage.passwordFieldLabel')}
           newRef={target}
         />
         {loginPageWarningOverlay

@@ -1,5 +1,5 @@
 import {
-  Button, Form, InputGroup,
+  Button, Form,
 } from 'react-bootstrap';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ import { useRef } from 'react';
 import { setShowSignupPageOverlay } from '../store/uiSlice';
 import { signup } from '../store/authSlice';
 import FieldOverlay from './FieldOverlay';
+import FormField from './FormField';
 
 const SignupForm = () => {
   const showSignupPageOverlay = useSelector((state) => state.ui.showSignupPageOverlay);
@@ -64,18 +65,12 @@ const SignupForm = () => {
     <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
       <h1 className="text-center mb-4">{t('signupPage.title')}</h1>
       <Form.Group className="mb-3">
-        <InputGroup className="mb-4" ref={usernameOverlay}>
-          <Form.FloatingLabel label={t('signupPage.labels.usernameFieldLabel')} controlId="username">
-            <Form.Control
-              type="text"
-              placeholder={t('signupPage.labels.usernameFieldLabel')}
-              onChange={handleUsername}
-              onBlur={formik.handleBlur}
-              value={formik.values.username}
-              isInvalid={formik.touched.username && formik.errors.username}
-            />
-          </Form.FloatingLabel>
-        </InputGroup>
+        <FormField
+          labelText={t('signupPage.labels.usernameField')}
+          formik={formik}
+          fieldName="username"
+          handleChange={handleUsername}
+        />
         {
           formik.errors.username
           && (
@@ -85,18 +80,12 @@ const SignupForm = () => {
             />
           )
         }
-        <InputGroup className="mb-4" ref={passwordOverlay}>
-          <Form.FloatingLabel label={t('signupPage.labels.passwordFieldLabel')} controlId="password">
-            <Form.Control
-              type="password"
-              placeholder={t('signupPage.labels.passwordFieldLabel')}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-              isInvalid={formik.touched.password && formik.errors.password}
-            />
-          </Form.FloatingLabel>
-        </InputGroup>
+        <FormField
+          labelText={t('signupPage.labels.passwordField')}
+          formik={formik}
+          fieldName="password"
+          type="password"
+        />
         {
           formik.errors.password
           && (
@@ -106,21 +95,12 @@ const SignupForm = () => {
             />
           )
         }
-        <InputGroup className="mb-4" ref={passwordConfirmationOverlay}>
-          <Form.FloatingLabel label={t('signupPage.labels.passwordConfirmationFieldLabel')} controlId="passwordConfirmation">
-            <Form.Control
-              type="password"
-              placeholder={t('signupPage.labels.passwordConfirmationFieldLabel')}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.passwordConfirmation}
-              isInvalid={
-                formik.touched.passwordConfirmation
-                && formik.errors.passwordConfirmation
-              }
-            />
-          </Form.FloatingLabel>
-        </InputGroup>
+        <FormField
+          labelText={t('signupPage.labels.passwordConfirmationField')}
+          formik={formik}
+          fieldName="passwordConfirmation"
+          type="password"
+        />
         {
           (formik.errors.passwordConfirmation || showSignupPageOverlay)
           && (

@@ -38,9 +38,9 @@ export default {
         409: 'Такой пользователь уже существует',
       },
       labels: {
-        usernameFieldLabel: 'Ваш ник',
-        passwordFieldLabel: 'Пароль',
-        passwordConfirmationFieldLabel: 'Подтверждение пароля',
+        usernameField: 'Ваш ник',
+        passwordField: 'Пароль',
+        passwordConfirmationField: 'Подтверждение пароля',
       },
       submitButton: 'Зарегистрироваться',
     },
