@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import Header from '../components/Header.js';
 import Chat from '../components/Chat.js';
 
-import { logout } from '../store/authSlice';
+import { logout } from '../store/slices/authSlice';
 
 const MainPage = () => {
   const { t } = useTranslation();

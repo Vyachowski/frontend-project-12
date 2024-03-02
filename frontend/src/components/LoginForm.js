@@ -2,12 +2,13 @@ import {
   Button, Form,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRef } from 'react';
-import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { login } from '../store/authSlice';
-import FormField from './FormField';
+import { useFormik } from 'formik';
+import { useRef } from 'react';
+
+import { login } from '../store/slices/authSlice';
 import FieldOverlay from './FieldOverlay';
+import FormField from './FormField';
 
 const LoginForm = () => {
   const loginPageWarningOverlay = useSelector((state) => state.ui.loginPageWarningOverlay);

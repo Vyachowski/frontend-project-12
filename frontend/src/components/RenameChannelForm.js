@@ -5,8 +5,8 @@ import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { patchChannel } from '../store/channelsSlice';
-import { setChannelModal } from '../store/uiSlice';
+import { patchChannel } from '../store/slices/channelsSlice';
+import { setChannelModal } from '../store/slices/uiSlice';
 
 const RenameChannelForm = () => {
   const { t } = useTranslation();

@@ -2,8 +2,8 @@ import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { postMessage } from '../store/messagesSlice';
-import { setMessageText } from '../store/uiSlice';
+import { postMessage } from '../store/slices/messagesSlice';
+import { setMessageText } from '../store/slices/uiSlice';
 import { filter } from '../locales';
 
 const MessagePanel = () => {

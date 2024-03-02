@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import messagesReducer from './messagesSlice';
-import channelsReducer from './channelsSlice';
-import authReducer from './authSlice';
-import appReducer from './appSlice';
-import uiReducer from './uiSlice';
+import messagesReducer from './slices/messagesSlice';
+import channelsReducer from './slices/channelsSlice';
+import authReducer from './slices/authSlice';
+import appReducer from './slices/appSlice';
+import uiReducer from './slices/uiSlice';
 
 export default configureStore({
   reducer: {

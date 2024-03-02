@@ -8,9 +8,9 @@ import { io } from 'socket.io-client';
 
 import {
   addChannel, fetchChannels, removeChannel, renameChannel,
-} from '../store/channelsSlice';
-import { addMessage, fetchMessages } from '../store/messagesSlice';
-import { setActiveChannel } from '../store/uiSlice';
+} from '../store/slices/channelsSlice';
+import { addMessage, fetchMessages } from '../store/slices/messagesSlice';
+import { setActiveChannel } from '../store/slices/uiSlice';
 import Channels from './Channels';
 import Messages from './Messages';
 

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 
-import { setChannelModal } from '../store/uiSlice';
+import { setChannelModal } from '../store/slices/uiSlice';
 
 const ModalWindow = ({ children, title }) => {
   const dispatch = useDispatch;

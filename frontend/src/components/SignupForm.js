@@ -9,8 +9,8 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useRef } from 'react';
 
-import { setShowSignupPageOverlay } from '../store/uiSlice';
-import { signup } from '../store/authSlice';
+import { setShowSignupPageOverlay } from '../store/slices/uiSlice';
+import { signup } from '../store/slices/authSlice';
 import FieldOverlay from './FieldOverlay';
 import FormField from './FormField';
 

@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { deleteChannel } from '../store/channelsSlice';
-import { setActiveChannel, setChannelModal } from '../store/uiSlice';
+import { setActiveChannel, setChannelModal } from '../store/slices/uiSlice';
+import { deleteChannel } from '../store/slices/channelsSlice';
 
 const RemoveChannelForm = () => {
   const { t } = useTranslation();

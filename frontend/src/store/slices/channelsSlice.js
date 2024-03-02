@@ -4,7 +4,7 @@ import i18n from 'i18next';
 
 import axios from 'axios';
 
-import { getAuthConfig, getChannelsUrl } from '../utils/routes';
+import { getAuthConfig, getChannelsUrl } from '../../utils/routes';
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',

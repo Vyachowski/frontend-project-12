@@ -5,8 +5,8 @@ import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { postChannel } from '../store/channelsSlice';
-import { setChannelModal } from '../store/uiSlice';
+import { postChannel } from '../store/slices/channelsSlice';
+import { setChannelModal } from '../store/slices/uiSlice';
 import { filter } from '../locales';
 
 const AddChannelForm = () => {

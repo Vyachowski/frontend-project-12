@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import {
   setActiveChannel, setChannelModal, setChannelModalType, setEditingChannel,
-} from '../store/uiSlice';
+} from '../store/slices/uiSlice';
 
 import RemoveChannelForm from './RemoveChannelForm';
 import RenameChannelForm from './RenameChannelForm';

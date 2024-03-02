@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
-import { logout } from '../store/authSlice';
+import { logout } from '../store/slices/authSlice';
 
 const Header = () => {
   const { t } = useTranslation();
