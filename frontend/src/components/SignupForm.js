@@ -67,7 +67,7 @@ const SignupForm = () => {
       <Form.Group className="mb-3">
         <FormField
           labelText={t('signupPage.labels.usernameField')}
-          formik={formik}
+          formHandler={formik}
           fieldName="username"
           handleChange={handleUsername}
         />
@@ -82,7 +82,7 @@ const SignupForm = () => {
         }
         <FormField
           labelText={t('signupPage.labels.passwordField')}
-          formik={formik}
+          formHandler={formik}
           fieldName="password"
           type="password"
         />
@@ -97,7 +97,7 @@ const SignupForm = () => {
         }
         <FormField
           labelText={t('signupPage.labels.passwordConfirmationField')}
-          formik={formik}
+          formHandler={formik}
           fieldName="passwordConfirmation"
           type="password"
         />

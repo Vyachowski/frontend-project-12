@@ -33,12 +33,12 @@ const LoginForm = () => {
       <Form.Group className="mb-3">
         <FormField
           labelText={t('loginPage.usernameFieldLabel')}
-          formik={formik}
+          formHandler={formik}
           fieldName="username"
         />
         <FormField
           labelText={t('loginPage.passwordFieldLabel')}
-          formik={formik}
+          formHandler={formik}
           fieldName="password"
           type="password"
           newRef={target}
