@@ -34,13 +34,13 @@ const LoginForm = () => {
         <FormField
           labelText={t('loginPage.usernameFieldLabel')}
           formik={formik}
-          fieldKey="username"
+          fieldName="username"
           placeholderText={t('loginPage.usernameFieldLabel')}
         />
         <FormField
           labelText={t('loginPage.passwordFieldLabel')}
           formik={formik}
-          fieldKey="password"
+          fieldName="password"
           type="password"
           placeholderText={t('loginPage.passwordFieldLabel')}
           newRef={target}
