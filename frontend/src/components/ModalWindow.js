@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 
-import { setChannelModal } from '../store/slices/uiSlice';
+import { setShowChannelModal } from '../store/slices/uiSlice';
 
 const ModalWindow = ({ children, title }) => {
   const dispatch = useDispatch;
-  const showChannelModal = useSelector((state) => state.ui.showChannelModal);
+  const showChannelModal = useSelector((state) => state.ui.modal.showChannelModal);
 
   const handleHide = () => {
-    dispatch(setChannelModal({ showChannelModal: false }));
+    dispatch(setShowChannelModal({ showChannelModal: false }));
   };
 
   return (

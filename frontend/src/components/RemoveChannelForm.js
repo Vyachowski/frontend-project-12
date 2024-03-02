@@ -2,24 +2,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { setActiveChannel, setChannelModal } from '../store/slices/uiSlice';
+import { setActiveChannel, setShowChannelModal } from '../store/slices/uiSlice';
 import { deleteChannel } from '../store/slices/channelsSlice';
 
 const RemoveChannelForm = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { id } = useSelector((state) => state.ui.editingChannel);
+  const { id } = useSelector((state) => state.ui.chat.editingChannel);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     dispatch(deleteChannel(id));
-    dispatch(setChannelModal({ showChannelModal: false }));
+    dispatch(setShowChannelModal({ showChannelModal: false }));
     dispatch(setActiveChannel({ activeChannelId: '1' }));
   };
 
   const handleCancel = () => {
-    dispatch(setChannelModal({ showChannelModal: false }));
+    dispatch(setShowChannelModal({ showChannelModal: false }));
   };
 
   return (

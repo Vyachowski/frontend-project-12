@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import {
-  setActiveChannel, setChannelModal, setChannelModalType, setEditingChannel,
+  setActiveChannel, setShowChannelModal, setModalWindowForm, setEditingChannel,
 } from '../store/slices/uiSlice';
 
 import RemoveChannelForm from './RemoveChannelForm';
@@ -18,9 +18,9 @@ const Channels = () => {
   const dispatch = useDispatch();
 
   const channels = useSelector((state) => Object.values(state.channels.entities));
-  const activeChannelId = useSelector((state) => state.ui.activeChannelId);
-  const showChannelModal = useSelector((state) => state.ui.showChannelModal);
-  const channelModalType = useSelector((state) => state.ui.channelModalType);
+  const activeChannelId = useSelector((state) => state.ui.chat.activeChannelId);
+  const showChannelModal = useSelector((state) => state.ui.modal.showChannelModal);
+  const channelModalType = useSelector((state) => state.ui.modal.channelModalType);
 
   const getModalTitle = (() => {
     switch (channelModalType) {
@@ -40,18 +40,18 @@ const Channels = () => {
   };
 
   const handleAddChannel = () => {
-    dispatch(setChannelModalType({ channelModalType: 'AddChannel' }));
-    dispatch(setChannelModal({ showChannelModal: true }));
+    dispatch(setModalWindowForm({ channelModalType: 'AddChannel' }));
+    dispatch(setShowChannelModal({ showChannelModal: true }));
   };
   const handleRemoveChannel = (editingChannel) => {
-    dispatch(setChannelModalType({ channelModalType: 'RemoveChannel' }));
-    dispatch(setChannelModal({ showChannelModal: true }));
+    dispatch(setModalWindowForm({ channelModalType: 'RemoveChannel' }));
+    dispatch(setShowChannelModal({ showChannelModal: true }));
     dispatch(setEditingChannel({ editingChannel }));
   };
 
   const handleRenameChannel = (editingChannel) => {
-    dispatch(setChannelModalType({ channelModalType: 'RenameChannel' }));
-    dispatch(setChannelModal({ showChannelModal: true }));
+    dispatch(setModalWindowForm({ channelModalType: 'RenameChannel' }));
+    dispatch(setShowChannelModal({ showChannelModal: true }));
     dispatch(setEditingChannel({ editingChannel }));
   };
 

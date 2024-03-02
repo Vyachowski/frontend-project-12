@@ -12,8 +12,8 @@ export default {
       title: 'Войти',
       submitButton: 'Войти',
       labels: {
-        usernameFieldLabel: 'Ваш ник',
-        passwordFieldLabel: 'Пароль',
+        usernameField: 'Ваш ник',
+        passwordField: 'Пароль',
       },
       noAccountMessage: 'Нет аккаунта? ',
       noAccountLink: 'Регистрация',

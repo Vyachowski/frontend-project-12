@@ -4,66 +4,72 @@ import { login, signup } from './authSlice';
 import { postChannel } from './channelsSlice';
 
 const initialState = {
-  activeChannelId: '1',
-  messageText: '',
-  showChannelModal: false,
-  channelModalType: 'AddChannel',
-  loginPageWarningOverlay: false,
-  userNameOverlay: false,
-  passwordOverlay: false,
-  passwordConfirmationOverlay: false,
-  showSignupPageOverlay: false,
-  editingChannel: null,
+  auth: {
+    showPasswordConfirmationOverlay: false,
+    showLoginPageWarningOverlay: false,
+    showSignupPageOverlay: false,
+    showUserNameOverlay: false,
+    showPasswordOverlay: false,
+  },
+  chat: {
+    activeChannelId: '1',
+    editingChannel: null,
+    messageText: '',
+  },
+  modal: {
+    modalWindowForm: 'AddChannel',
+    showModalWindow: false,
+  },
 };
 
 const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
+    setShowSignupPageOverlay: (state, action) => {
+      state.auth.showSignupPageOverlay = action.payload.showSignupPageOverlay;
+    },
     setActiveChannel: (state, action) => {
-      state.activeChannelId = action.payload.activeChannelId;
-    },
-    setMessageText: (state, action) => {
-      state.messageText = action.payload.messageText;
-    },
-    setChannelModal: (state, action) => {
-      state.showChannelModal = action.payload.showChannelModal;
-    },
-    setChannelModalType: (state, action) => {
-      state.channelModalType = action.payload.channelModalType;
+      state.chat.activeChannelId = action.payload.activeChannelId;
     },
     setEditingChannel: (state, action) => {
-      state.editingChannel = action.payload.editingChannel;
+      state.chat.editingChannel = action.payload.editingChannel;
     },
-    setShowSignupPageOverlay: (state, action) => {
-      state.showSignupPageOverlay = action.payload.showSignupPageOverlay;
+    setMessageText: (state, action) => {
+      state.chat.messageText = action.payload.messageText;
+    },
+    setShowChannelModal: (state, action) => {
+      state.modal.showChannelModal = action.payload.showChannelModal;
+    },
+    setModalWindowForm: (state, action) => {
+      state.modal.modalWindowForm = action.payload.modalWindowForm;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(postMessage.fulfilled, (state) => {
-        state.messageText = '';
+        state.chat.messageText = '';
       })
       .addCase(login.fulfilled, (state) => {
-        state.loginPageWarningOverlay = false;
+        state.auth.loginPageWarningOverlay = false;
       })
       .addCase(login.pending, (state) => {
-        state.loginPageWarningOverlay = false;
+        state.auth.loginPageWarningOverlay = false;
       })
       .addCase(login.rejected, (state) => {
-        state.loginPageWarningOverlay = true;
+        state.auth.loginPageWarningOverlay = true;
       })
       .addCase(signup.fulfilled, (state) => {
-        state.showSignupPageOverlay = false;
+        state.auth.showSignupPageOverlay = false;
       })
       .addCase(signup.pending, (state) => {
-        state.showSignupPageOverlay = false;
+        state.auth.showSignupPageOverlay = false;
       })
       .addCase(signup.rejected, (state) => {
-        state.showSignupPageOverlay = true;
+        state.auth.showSignupPageOverlay = true;
       })
       .addCase(postChannel.fulfilled, (state, action) => {
-        state.activeChannelId = action.payload.id;
+        state.chat.activeChannelId = action.payload.id;
       });
   },
 });
@@ -71,9 +77,9 @@ const uiSlice = createSlice({
 export const {
   setActiveChannel,
   setMessageText,
-  setChannelModal,
+  setShowChannelModal,
   setEditingChannel,
-  setChannelModalType,
+  setModalWindowForm,
   setShowSignupPageOverlay,
 } = uiSlice.actions;
 export default uiSlice.reducer;

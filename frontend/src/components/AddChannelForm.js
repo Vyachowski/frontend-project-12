@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { postChannel } from '../store/slices/channelsSlice';
-import { setChannelModal } from '../store/slices/uiSlice';
+import { setShowChannelModal } from '../store/slices/uiSlice';
 import { filter } from '../locales';
 
 const AddChannelForm = () => {
@@ -15,7 +15,7 @@ const AddChannelForm = () => {
   const inputRef = useRef(null);
 
   const channels = useSelector((state) => Object.values(state.channels.entities));
-  const showChannelModal = useSelector((state) => state.ui.showChannelModal);
+  const showChannelModal = useSelector((state) => state.ui.modal.showChannelModal);
 
   const channelNames = channels.map((channel) => channel.name);
 
@@ -39,7 +39,7 @@ const AddChannelForm = () => {
       const { newChannelName } = values;
       const filteredChannelName = filter.clean(newChannelName);
       dispatch(postChannel(filteredChannelName));
-      dispatch(setChannelModal({ showChannelModal: false }));
+      dispatch(setShowChannelModal({ showChannelModal: false }));
     },
   });
 
@@ -74,7 +74,7 @@ const AddChannelForm = () => {
           : null}
       </Form.Group>
       <div className="d-flex justify-content-end">
-        <Button type="button" className="me-2" variant="secondary" onClick={() => dispatch(setChannelModal({ showChannelModal: false }))}>
+        <Button type="button" className="me-2" variant="secondary" onClick={() => dispatch(setShowChannelModal({ showChannelModal: false }))}>
           {t('components.addChannelForm.cancelButton')}
         </Button>
         <Button type="submit" variant="primary">
