@@ -11,7 +11,7 @@ import FieldOverlay from './FieldOverlay';
 import FormField from './FormField';
 
 const LoginForm = () => {
-  const loginPageWarningOverlay = useSelector((state) => state.ui.loginPageWarningOverlay);
+  const loginPageWarningOverlay = useSelector((state) => state.ui.auth.loginPageWarningOverlay);
   const dispatch = useDispatch();
 
   const { t } = useTranslation();

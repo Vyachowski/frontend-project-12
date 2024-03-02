@@ -7,8 +7,8 @@ import { logout } from '../store/slices/authSlice';
 
 const Header = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());

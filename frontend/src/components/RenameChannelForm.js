@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { patchChannel } from '../store/slices/channelsSlice';
-import { setShowChannelModal } from '../store/slices/uiSlice';
+import { setShowModalWindow } from '../store/slices/uiSlice';
 
 const RenameChannelForm = () => {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ const RenameChannelForm = () => {
   const inputRef = useRef(null);
 
   const channels = useSelector((state) => Object.values(state.channels.entities));
-  const showChannelModal = useSelector((state) => state.ui.modal.showChannelModal);
+  const showChannelModal = useSelector((state) => state.ui.modal.showModalWindow);
   const editingChannel = useSelector((state) => state.ui.chat.editingChannel);
 
   const channelNames = channels.map((channel) => channel.name);
@@ -38,7 +38,7 @@ const RenameChannelForm = () => {
     onSubmit: (values) => {
       const { newChannelName: name } = values;
       dispatch(patchChannel({ name, id: editingChannel.id }));
-      dispatch(setShowChannelModal({ showChannelModal: false }));
+      dispatch(setShowModalWindow({ showModalWindow: false }));
     },
   });
 
@@ -79,7 +79,7 @@ const RenameChannelForm = () => {
         }
       </Form.Group>
       <div className="d-flex justify-content-end">
-        <Button type="button" className="me-2" variant="secondary" onClick={() => dispatch(setShowChannelModal({ showChannelModal: false }))}>
+        <Button type="button" className="me-2" variant="secondary" onClick={() => dispatch(setShowModalWindow({ showChannelModal: false }))}>
           {t('components.renameChannelForm.cancelButton')}
         </Button>
         <Button type="submit" variant="primary">

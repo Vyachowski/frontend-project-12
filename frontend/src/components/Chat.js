@@ -18,7 +18,7 @@ const socket = io();
 
 const Chat = () => {
   const dispatch = useDispatch();
-  const activeChannelId = useSelector((state) => state.ui.activeChannelId);
+  const activeChannelId = useSelector((state) => state.ui.chat.activeChannelId);
 
   useEffect(() => {
     dispatch(fetchChannels());

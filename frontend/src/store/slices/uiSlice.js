@@ -38,8 +38,8 @@ const uiSlice = createSlice({
     setMessageText: (state, action) => {
       state.chat.messageText = action.payload.messageText;
     },
-    setShowChannelModal: (state, action) => {
-      state.modal.showChannelModal = action.payload.showChannelModal;
+    setShowModalWindow: (state, action) => {
+      state.modal.showModalWindow = action.payload.showModalWindow;
     },
     setModalWindowForm: (state, action) => {
       state.modal.modalWindowForm = action.payload.modalWindowForm;
@@ -77,7 +77,7 @@ const uiSlice = createSlice({
 export const {
   setActiveChannel,
   setMessageText,
-  setShowChannelModal,
+  setShowModalWindow,
   setEditingChannel,
   setModalWindowForm,
   setShowSignupPageOverlay,

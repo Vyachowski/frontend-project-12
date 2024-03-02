@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { setActiveChannel, setShowChannelModal } from '../store/slices/uiSlice';
+import { setActiveChannel, setShowModalWindow } from '../store/slices/uiSlice';
 import { deleteChannel } from '../store/slices/channelsSlice';
 
 const RemoveChannelForm = () => {
@@ -14,12 +14,12 @@ const RemoveChannelForm = () => {
     e.preventDefault();
 
     dispatch(deleteChannel(id));
-    dispatch(setShowChannelModal({ showChannelModal: false }));
+    dispatch(setShowModalWindow({ showModalWindow: false }));
     dispatch(setActiveChannel({ activeChannelId: '1' }));
   };
 
   const handleCancel = () => {
-    dispatch(setShowChannelModal({ showChannelModal: false }));
+    dispatch(setShowModalWindow({ showModalWindow: false }));
   };
 
   return (

@@ -9,8 +9,9 @@ import { filter } from '../locales';
 const MessagePanel = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const messageText = useSelector((state) => state.ui.messageText);
-  const activeChannelId = useSelector((state) => state.ui.activeChannelId);
+
+  const messageText = useSelector((state) => state.ui.chat.messageText);
+  const activeChannelId = useSelector((state) => state.ui.chat.activeChannelId);
   const username = useSelector((state) => state.auth.username);
 
   const sendMessage = (e) => {
