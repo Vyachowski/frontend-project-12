@@ -1,5 +1,6 @@
 # Hexlet JS Project – Slack-like app
 
+(Screenshot)
 This project is centered around practicing react and react libraries like react-router, redux etc.
 
 Чтобы читать Readme на русском перейдите по этой [ссылке](https://github.com/Vyachowski/frontend-project-12/blob/main/README_ru.md)
