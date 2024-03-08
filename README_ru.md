@@ -3,7 +3,7 @@
 ![Cover image for project](https://github.com/Vyachowski/frontend-project-12/blob/main/cover.png)
 Проект создан для практики создания реакт приложений, использования редакс и редакс тулкит, работы с веб-сокетами и других базовых веб-технологий.
 
-To read Readme in english please follow [ершы дштл](https://github.com/Vyachowski/frontend-project-12/blob/main/README.md)
+To read Readme in english please follow [this link](https://github.com/Vyachowski/frontend-project-12/blob/main/README.md)
 
 ## Описание
 
