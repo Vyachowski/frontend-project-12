@@ -11,12 +11,14 @@ A Slack-like app that allows you to create channels, send messages and other act
 
 ## Getting Started
 
+### Demo
+
+[Visit Chat App](https://slack-like-app.onrender.com)
+
 ### Dependencies
 
 * Node.js
 * NPM Package Manager as a part of Node.js
-* React
-* Redux
 
 ### Installing
 
@@ -31,23 +33,21 @@ or
 ```sh 
 git clone git@github.com:Vyachowski/frontend-project-12.git
 ```
-for ssh
+
 * Run in a root directory of the project
 ```sh 
-npm ci
+npm i
 ```
 
 ### Executing program
 
-You can run the project with:
-```sh
-make ...
+Run a development server from root directory:
+
+```sh 
+make develop
 ```
+Or you can create a build to upload to your own server:
 
-___
-
-___
-
-### Project demo
-
-[Visit demo site](https://slack-like-app.onrender.com)
+```sh
+make build
+```
