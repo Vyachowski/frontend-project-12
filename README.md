@@ -1,12 +1,9 @@
 # Hexlet JS Project – Slack-like app
 
-(Screenshot)
+![Cover image for project](https://github.com/Vyachowski/frontend-project-12/blob/main/cover.png)
 This project is centered around practicing react and react libraries like react-router, redux etc.
 
 Чтобы читать Readme на русском перейдите по этой [ссылке](https://github.com/Vyachowski/frontend-project-12/blob/main/README_ru.md)
-
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/Vyachowski/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Vyachowski/frontend-project-12/actions)
 
 ## Description
 
