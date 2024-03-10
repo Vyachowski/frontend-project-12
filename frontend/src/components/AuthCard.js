@@ -20,7 +20,7 @@ const AuthCard = ({ image, children, hasFooter = false }) => {
           <Card className="shadow-sm">
             <CardBody className="row p-5">
               <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <Image src={image} className="rounded-circle" alt="Welcome to the app." width={200} />
+                <Image src={image} className="rounded-circle" alt="Welcome to the app." width="200" height="200" />
               </Col>
               {children}
             </CardBody>
