@@ -96,7 +96,7 @@ const channelsSlice = createSlice({
         state.loadingStatus = 'idle';
         state.error = null;
 
-        toast.success(i18n.t('components.renameChannelForm.request.success'), {
+        toast.info(i18n.t('components.renameChannelForm.request.success'), {
           toastId: 3,
         });
       })
@@ -112,7 +112,7 @@ const channelsSlice = createSlice({
         state.loadingStatus = 'idle';
         state.error = null;
 
-        toast.success(i18n.t('components.removeChannelForm.request.success'), {
+        toast.info(i18n.t('components.removeChannelForm.request.success'), {
           toastId: 5,
         });
       })
